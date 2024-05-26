@@ -19,4 +19,14 @@ public class HabitacionEconomica extends Habitacion {
         this.aire = true;
     }
 
+
+    //to string
+
+
+    @Override
+    public String toString() {
+        return "HabitacionEconomica{"+ super.toString() +
+                "aire=" + aire +
+                '}';
+    }
 }

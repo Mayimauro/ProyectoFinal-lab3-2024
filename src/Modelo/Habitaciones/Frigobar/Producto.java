@@ -1,6 +1,8 @@
 package Modelo.Habitaciones.Frigobar;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Serializable {
     public static final int STOCK = 2;
     private String nombre;
     private double precio;
@@ -15,5 +17,17 @@ public class Producto {
         this.nombre = "";
         this.precio = 0;
         this.stock = STOCK;
+    }
+
+
+    //tostring
+
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "nombre='" + nombre + '\'' +
+                ", precio=" + precio +
+                ", stock=" + stock +
+                '}';
     }
 }

@@ -25,4 +25,16 @@ public class HabitacionEstandar extends HabitacionEconomica{
         this.frigobar = true;
     }
 
+
+    //tostring
+
+
+    @Override
+    public String toString() {
+        return "HabitacionEstandar{" + super.toString()+
+                "vistaAlMar=" + vistaAlMar +
+                ", bañera=" + bañera +
+                ", frigobar=" + frigobar +
+                '}';
+    }
 }

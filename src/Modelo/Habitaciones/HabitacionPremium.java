@@ -14,4 +14,14 @@ public class HabitacionPremium extends HabitacionEstandar{
         this.servicioDesayuno = servicioDesayuno;
     }
 
+    //toString
+
+
+    @Override
+    public String toString() {
+        return "HabitacionPremium{"+ super.toString() +
+                "jacuzzi=" + jacuzzi +
+                ", servicioDesayuno=" + servicioDesayuno +
+                '}';
+    }
 }

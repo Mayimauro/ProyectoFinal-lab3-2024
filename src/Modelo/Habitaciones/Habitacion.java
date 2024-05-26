@@ -2,7 +2,9 @@ package Modelo.Habitaciones;
 
 import Enums.ETipoHabitacion;
 
-public abstract class Habitacion {
+import java.io.Serializable;
+
+public abstract class Habitacion implements Serializable {
     private ETipoHabitacion habitacion;
     private int numero;
     private double precioBase;
@@ -55,5 +57,21 @@ public abstract class Habitacion {
 
     public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
+    }
+
+
+
+    //to string
+
+
+    @Override
+    public String toString() {
+        return "Habitacion{" +
+                "habitacion=" + habitacion +
+                ", numero=" + numero +
+                ", precioBase=" + precioBase +
+                ", costoAdicional=" + costoAdicional +
+                ", disponibilidad=" + disponibilidad +
+                '}';
     }
 }
