@@ -9,19 +9,51 @@ public abstract class Habitacion {
     private double costoAdicional;
     private boolean disponibilidad;
 
-    public Habitacion(ETipoHabitacion habitacion, double precioBase) {
+    public Habitacion(ETipoHabitacion habitacion) {
         this.habitacion = habitacion;
         //this.numero = numero; //hacerlo autoincremental, crear funcion
-        this.precioBase = precioBase;
+        this.precioBase = 0;
         //this.costoAdicional = costoAdicional; //calcularlo con funcion
         this.disponibilidad = true;
     }
-    public Habitacion() {
-        this.habitacion = ETipoHabitacion.CAMA_MATRIMONIAL;
-        this.numero = 0;
-        this.precioBase = 0;
-        this.costoAdicional = 0;
-        this.disponibilidad = true;
+
+    public ETipoHabitacion getHabitacion() {
+        return habitacion;
     }
 
+    public void setHabitacion(ETipoHabitacion habitacion) {
+        this.habitacion = habitacion;
+    }
+
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public double getPrecioBase() {
+        return precioBase;
+    }
+
+    public void setPrecioBase(double precioBase) {
+        this.precioBase = precioBase;
+    }
+
+    public double getCostoAdicional() {
+        return costoAdicional;
+    }
+
+    public void setCostoAdicional(double costoAdicional) {
+        this.costoAdicional = costoAdicional;
+    }
+
+    public boolean isDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
 }

@@ -3,15 +3,20 @@ package Modelo.Habitaciones;
 import Enums.ETipoHabitacion;
 
 public class HabitacionEconomica extends Habitacion {
+    public static final double PRECIO_BASE_ECONOMICA = 100;
     private boolean aire;
 
-    public HabitacionEconomica(ETipoHabitacion habitacion, double precioBase, boolean aire) {
-        super(habitacion, precioBase);
+    //constructor para este tipo de habitación
+    public HabitacionEconomica(ETipoHabitacion habitacion, boolean aire) {
+        super(habitacion);
+        super.setPrecioBase(PRECIO_BASE_ECONOMICA);
         this.aire = aire;
     }
-
-    public HabitacionEconomica() {
-        super();
-        this.aire = false;
+    //constructor para el siguiente tipo de habitación que va a tener estos atributos en true
+    public HabitacionEconomica(ETipoHabitacion habitacion) {
+        super(habitacion);
+        super.setPrecioBase(PRECIO_BASE_ECONOMICA);
+        this.aire = true;
     }
+
 }
