@@ -15,6 +15,7 @@ public class Hotel implements Serializable {
     private HashMap<Integer,Habitacion> listaHabitaciones;  //(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
     private ArrayList<Persona> HistorialPersonas;
+    private HashMap<Persona,Check> registroChekcs; //guardamos los checks por persona
 
 
     public Hotel() {
@@ -23,6 +24,7 @@ public class Hotel implements Serializable {
         cargarDesdeArchivo();
         this.reservas = new ArrayList<>();
         HistorialPersonas = new ArrayList<>();
+        registroChekcs = new HashMap<>();
     }
 
     /**
