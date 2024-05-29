@@ -12,56 +12,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Hotel implements Serializable {
-    private HashMap<Integer,Habitacion> listaHabitaciones;  //(el integer es el numero de la habitacion)
+
+    private HashMap<Integer,Habitacion> listaHabitaciones; //(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
-    private ArrayList<Persona> HistorialPersonas;
+    private ArrayList<Persona> historialPersonas;
     private HashMap<Persona,Check> registroChekcs; //guardamos los checks por persona
 
 
     public Hotel() {
         this.listaHabitaciones = new HashMap<Integer,Habitacion>();
-        //agregarHabitacionesXArchivo();
-        cargarDesdeArchivo();
         this.reservas = new ArrayList<>();
-        HistorialPersonas = new ArrayList<>();
+        historialPersonas = new ArrayList<>();
         registroChekcs = new HashMap<>();
+        cargarDesdeArchivo();
     }
 
-    /**
-     * con esta funcion cargamos habitraciones dentro de nuestro hotel desde un archivo
-     * va a ser borrada una vez tengamos todos el archivo en nuestras pc
-     * para usar descomentar la funcion en el constructor ir al main y darle al play
-     */
-    private void agregarHabitacionesXArchivo()
-    {
-        HashMap<Integer,Habitacion> Habitaciones = new HashMap<>();
-        HabitacionPremium p1 = new HabitacionPremium(ETipoHabitacion.DOBLE_TIPO_1,true,true);
-        HabitacionPremium p2 = new HabitacionPremium(ETipoHabitacion.DOBLE_TIPO_2,true,true);
-        HabitacionPremium p3 = new HabitacionPremium(ETipoHabitacion.TRIPLE,true,true);
-        HabitacionEstandar e1 = new HabitacionEstandar(ETipoHabitacion.DOBLE_TIPO_1,true,true,true);
-        HabitacionEstandar e2 = new HabitacionEstandar(ETipoHabitacion.TRIPLE,true,true,true);
-        HabitacionEconomica eco1 = new HabitacionEconomica(ETipoHabitacion.SIMPLE,true);
-        HabitacionEconomica eco2 = new HabitacionEconomica(ETipoHabitacion.DOBLE_TIPO_1,true);
-        HabitacionEconomica eco3 = new HabitacionEconomica(ETipoHabitacion.SIMPLE,false);
-        Habitaciones.put(1,eco1);
-        Habitaciones.put(2,eco2);
-        Habitaciones.put(3,eco3);
-        Habitaciones.put(4,e1);
-        Habitaciones.put(5,e2);
-        Habitaciones.put(6,p1);
-        Habitaciones.put(7,p2);
-        Habitaciones.put(8,p3);
 
-        try (FileOutputStream fos = new FileOutputStream("ListaHabitaciones.ser");
-             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
-
-            oos.writeObject(Habitaciones);
-            System.out.println("HashMap ha sido serializado y guardado en hashmap.ser");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     private void cargarDesdeArchivo()
     {
@@ -77,9 +43,7 @@ public class Hotel implements Serializable {
 
             // Deserializar el objeto y asignarlo al HashMap
             HashMap<Integer,Habitacion> map = (HashMap<Integer,Habitacion>) ois.readObject();
-            System.out.println("HashMap ha sido deserializado:");
             listaHabitaciones = map;
-            System.out.println(listaHabitaciones);
 
         } catch (FileNotFoundException e) {
             System.err.println("Archivo no encontrado: " + filePath);
@@ -91,6 +55,32 @@ public class Hotel implements Serializable {
             System.err.println("Clase no encontrada al deserializar el archivo.");
             e.printStackTrace();
         }
+
+        /**
+         * arreglar
+         * no carga las personas del archivo a la lista
+         */
+
+        try (FileInputStream fileIn = new FileInputStream("Personas.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            while (true) {
+                try {
+                   Persona persona = (Persona) in.readObject();
+                    System.out.printf("\n\n\n----"+persona.toString()+"---\n\n\n");
+                   historialPersonas.add(persona);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (IOException e) {
+            System.out.printf("\n\n\n----final del archivo---\n\n\n");
+            // Se alcanzó el final del archivo
+        }
+    }
+
+    public String mostrarHabitaciones()
+    {
+      return listaHabitaciones.toString();
     }
 
 }

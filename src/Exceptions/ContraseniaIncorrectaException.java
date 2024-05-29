@@ -6,5 +6,5 @@ public class ContraseniaIncorrectaException extends IOException {
     public ContraseniaIncorrectaException() {
         super();
     }
-    public void 
+
 }
