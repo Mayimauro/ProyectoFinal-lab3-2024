@@ -9,7 +9,7 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
     private ETipoHabitacion habitacion;
     private int numero;
     private double precioBase;
-    private double costoAdicional;
+    //private double costoAdicional;
     private boolean disponibilidad;
 
     public Habitacion(ETipoHabitacion habitacion) {
@@ -44,13 +44,6 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
         this.precioBase = precioBase;
     }
 
-    public double getCostoAdicional() {
-        return costoAdicional;
-    }
-
-    public void setCostoAdicional(double costoAdicional) {
-        this.costoAdicional = costoAdicional;
-    }
 
     public boolean isDisponibilidad() {
         return disponibilidad;
@@ -65,8 +58,9 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
         return 0;
     }
 
-    //to string
-
+    public double costoFinalHabitacion() {
+        return precioBase + calcularCostoAdiconal();
+    }
 
     @Override
     public String toString() {
@@ -74,12 +68,8 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
                 "habitacion=" + habitacion +
                 ", numero=" + numero +
                 ", precioBase=" + precioBase +
-                ", costoAdicional=" + costoAdicional +
+                ", costoAdicional="  +
                 ", disponibilidad=" + disponibilidad +
                 '}';
-    }
-
-    public double costoFinalHabitacion() {
-        return precioBase + costoAdicional;
     }
 }

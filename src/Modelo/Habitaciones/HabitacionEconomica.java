@@ -19,8 +19,6 @@ public class HabitacionEconomica extends Habitacion {
         this.aire = true;
     }
 
-
-
     @Override
     public double calcularCostoAdiconal() {
         if(aire)
@@ -29,9 +27,6 @@ public class HabitacionEconomica extends Habitacion {
         }
         else return super.calcularCostoAdiconal();
     }
-
-    //to string
-
 
     @Override
     public String toString() {

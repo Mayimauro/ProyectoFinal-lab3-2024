@@ -23,9 +23,6 @@ public class HabitacionPremium extends HabitacionEstandar{
         else return super.calcularCostoAdiconal();
     }
 
-    //toString
-
-
     @Override
     public String toString() {
         return "HabitacionPremium{"+ super.toString() +
