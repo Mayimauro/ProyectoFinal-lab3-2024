@@ -48,6 +48,7 @@ public class InterfazGrafica {
         System.out.printf("\t\t\tBienvenido pasajero\n");
         System.out.printf("\t\t\tQue le gustaria hacer?\n");
         System.out.printf("\t\t\t1)Alquilar una habitacion.\n");
+        System.out.printf("\t\t\t1)Alquilar una habitacion.\n");
         System.out.printf("\t\t\t2)Salir.\n");
         int opcion = teclado.nextInt();
         switch (opcion){
@@ -96,7 +97,7 @@ public class InterfazGrafica {
          */
         if(verificarEmail(mail).contains("admin.com") || verificarEmail(mail).contains("conserje.com"))
         {
-            System.out.printf("\nEl email no puede tener ese dominio\n");
+            System.out.printf("\nEl email no puede tener ese dominio\n"); //podemos crear excepcion
             System.out.printf("\nPorfavor ingrese uno valido\n");
             do {
                 System.out.printf("\nMail: ");

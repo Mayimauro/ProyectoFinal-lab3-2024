@@ -4,7 +4,7 @@ import Enums.ETipoHabitacion;
 
 public class HabitacionEconomica extends Habitacion {
     public static final double PRECIO_BASE_ECONOMICA = 100;
-    private boolean aire;
+    private boolean aire; //20
 
     //constructor para este tipo de habitación
     public HabitacionEconomica(ETipoHabitacion habitacion, boolean aire) {
@@ -19,6 +19,16 @@ public class HabitacionEconomica extends Habitacion {
         this.aire = true;
     }
 
+
+
+    @Override
+    public double calcularCostoAdiconal() {
+        if(aire)
+        {
+            return super.calcularCostoAdiconal() + 20;
+        }
+        else return super.calcularCostoAdiconal();
+    }
 
     //to string
 

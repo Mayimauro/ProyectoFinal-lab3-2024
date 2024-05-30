@@ -1,10 +1,11 @@
 package Modelo.Habitaciones;
 
 import Enums.ETipoHabitacion;
+import Interfaces.ICalcularCostoAdicional;
 
 import java.io.Serializable;
 
-public abstract class Habitacion implements Serializable {
+public abstract class Habitacion implements Serializable, ICalcularCostoAdicional {
     private ETipoHabitacion habitacion;
     private int numero;
     private double precioBase;
@@ -59,7 +60,10 @@ public abstract class Habitacion implements Serializable {
         this.disponibilidad = disponibilidad;
     }
 
-
+    @Override
+    public double calcularCostoAdiconal() {
+        return 0;
+    }
 
     //to string
 
@@ -73,5 +77,9 @@ public abstract class Habitacion implements Serializable {
                 ", costoAdicional=" + costoAdicional +
                 ", disponibilidad=" + disponibilidad +
                 '}';
+    }
+
+    public double costoFinalHabitacion() {
+        return precioBase + costoAdicional;
     }
 }

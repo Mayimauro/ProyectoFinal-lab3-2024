@@ -11,6 +11,7 @@ public class Estadia {
     private Persona pasajero;
     private Check check;
     private Habitacion habitacion;
+    //consumos
 
     public Estadia(LocalDate fechaIngreso, LocalDate fechaSalida, Persona pasajero, Habitacion habitacion) {
         this.fechaIngreso = fechaIngreso;

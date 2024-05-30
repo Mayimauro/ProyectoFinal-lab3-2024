@@ -1,12 +1,13 @@
 package Modelo.Habitaciones;
 
 import Enums.ETipoHabitacion;
+import Interfaces.ICalcularCostoAdicional;
 
-public class HabitacionEstandar extends HabitacionEconomica{
+public class HabitacionEstandar extends HabitacionEconomica {
     public static final double PRECIO_BASE_ESTANDAR = 150;
-    private boolean vistaAlMar;
-    private boolean bañera;
-    private boolean frigobar;
+    private boolean vistaAlMar; //30
+    private boolean bañera; //20
+    private boolean frigobar; //0
 
     //constructor para este tipo de habitación
     public HabitacionEstandar(ETipoHabitacion habitacion, boolean vistaAlMar, boolean bañera, boolean frigobar) {
@@ -25,6 +26,22 @@ public class HabitacionEstandar extends HabitacionEconomica{
         this.frigobar = true;
     }
 
+    @Override
+    public double calcularCostoAdiconal() {
+        double adicional = 0;
+
+        if(vistaAlMar && bañera)
+        {
+            adicional += 50;
+        } else if (!vistaAlMar && bañera) {
+            adicional += 30;
+
+        } else if (vistaAlMar && !bañera) {
+            adicional += 20;
+        }
+
+        return super.calcularCostoAdiconal() + adicional;
+    }
 
     //tostring
 
