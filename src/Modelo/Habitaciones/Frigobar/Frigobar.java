@@ -13,6 +13,21 @@ public class Frigobar implements Serializable {
         this.productos = new ArrayList<>();
     }
 
+    public void argrgarProductos(Producto producto) {
+        productos.add(producto);
+    }
+
+    public Producto existeProducto(String nombre) {
+
+        for(Producto p : productos) {
+            if(p.getNombre().equals(nombre)) {
+                return p;
+            }
+        }
+        return null;
+    }
+
+
     @Override
     public String toString() {
         return "Frigobar{" +

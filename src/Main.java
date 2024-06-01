@@ -1,3 +1,4 @@
+import Enums.EEstadoHabitacion;
 import Enums.ETipoHabitacion;
 import Modelo.Habitaciones.Habitacion;
 import Modelo.Habitaciones.HabitacionEstandar;
@@ -26,6 +27,8 @@ public class Main {
         System.out.println(r1.precioFinal());
 
         System.out.println(A1.costoFinalHabitacion());
+
+        System.out.printf("\n\n--el nombre de la habitacion es: "+A1.getClass().getName());
 
 
     }

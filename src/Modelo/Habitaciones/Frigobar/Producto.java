@@ -22,6 +22,27 @@ public class Producto implements Serializable {
         this.stock = STOCK;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public boolean bajaStock() {
+        if(this.stock >0) {
+            stock -= 1;
+            return true;
+        }else
+        {
+            return false;
+        }
+    }
 
     //tostring
 

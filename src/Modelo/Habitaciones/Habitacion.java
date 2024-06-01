@@ -1,5 +1,6 @@
 package Modelo.Habitaciones;
 
+import Enums.EEstadoHabitacion;
 import Enums.ETipoHabitacion;
 import Interfaces.ICalcularCostoAdicional;
 
@@ -15,6 +16,7 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
     private double precioBase;
     //private double costoAdicional;
     private boolean disponibilidad;
+    private EEstadoHabitacion estado;
 
     public Habitacion(ETipoHabitacion habitacion) {
         this.habitacion = habitacion;
@@ -22,6 +24,7 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
         this.precioBase = 0;
         //this.costoAdicional = costoAdicional; //calcularlo con funcion
         this.disponibilidad = true;
+        this.estado = EEstadoHabitacion.DISPONIBLE;
     }
 
     public ETipoHabitacion getHabitacion() {
