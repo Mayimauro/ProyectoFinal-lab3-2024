@@ -7,6 +7,9 @@ public class HabitacionPremium extends HabitacionEstandar{
     private boolean jacuzzi; //50
     private boolean servicioDesayuno; //0
 
+    /**
+     * Constructor diseñado para este tipo de habitación, donde el usuario elije las comodidades adicionales.
+     */
     public HabitacionPremium(ETipoHabitacion habitacion, boolean jacuzzi, boolean servicioDesayuno) {
         super(habitacion);
         super.setPrecioBase(PRECIO_BASE_PREIMIUM);
@@ -14,6 +17,10 @@ public class HabitacionPremium extends HabitacionEstandar{
         this.servicioDesayuno = servicioDesayuno;
     }
 
+    /**
+     * Método heredado y sobreescrito para calcular el costo adicional.
+     * @return retorna el costo adicional según las comodidades elejidas por el usuario.
+     */
     @Override
     public double calcularCostoAdiconal() {
         if(jacuzzi)

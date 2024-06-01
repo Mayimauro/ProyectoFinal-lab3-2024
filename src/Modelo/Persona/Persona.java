@@ -5,6 +5,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * Clase la cual detalla todos los datos pertinentes a la persona que realiza la reserva.
+ */
 public class Persona implements Serializable {
     private String nombre;
     private String apellido;
@@ -12,7 +15,6 @@ public class Persona implements Serializable {
     private String mail;
     private String contrasena;
     private Domicilio domicilio;
-
 
     public Persona(String nombre, String apellido, String DNI, String mail, String contrasena, Domicilio domicilio) {
         this.nombre = nombre;
@@ -22,7 +24,6 @@ public class Persona implements Serializable {
         this.contrasena = contrasena;
         this.domicilio = domicilio;
     }
-
 
     public void agregarAlArchivo(Persona persona) {
         try (FileOutputStream fileOut = new FileOutputStream("Personas.ser", true);

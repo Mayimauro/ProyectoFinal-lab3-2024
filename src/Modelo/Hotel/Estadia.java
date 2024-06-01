@@ -5,6 +5,10 @@ import Modelo.Persona.Persona;
 
 import java.time.LocalDate;
 
+/**
+ * Clase con el fin de controlar la estadía real de los pasajeros en el hotel. Indica las fechas reales en las que se
+ * encontró en el hotel, maneja los checks y muestra los consumos, si los tuviera.
+ */
 public class Estadia {
     private LocalDate fechaIngreso;
     private LocalDate fechaSalida;

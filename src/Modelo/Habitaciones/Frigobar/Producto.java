@@ -2,6 +2,9 @@ package Modelo.Habitaciones.Frigobar;
 
 import java.io.Serializable;
 
+/**
+ * Son los productos que va a contener el frigobar.
+ */
 public class Producto implements Serializable {
     public static final int STOCK = 2;
     private String nombre;

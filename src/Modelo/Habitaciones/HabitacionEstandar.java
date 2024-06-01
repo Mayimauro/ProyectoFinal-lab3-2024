@@ -1,7 +1,6 @@
 package Modelo.Habitaciones;
 
 import Enums.ETipoHabitacion;
-import Interfaces.ICalcularCostoAdicional;
 
 public class HabitacionEstandar extends HabitacionEconomica {
     public static final double PRECIO_BASE_ESTANDAR = 150;
@@ -9,7 +8,9 @@ public class HabitacionEstandar extends HabitacionEconomica {
     private boolean bañera; //20
     private boolean frigobar; //0
 
-    //constructor para este tipo de habitación
+    /**
+     * Constructor diseñado para este tipo de habitación, donde el usuario elije las comodidades adicionales.
+     */
     public HabitacionEstandar(ETipoHabitacion habitacion, boolean vistaAlMar, boolean bañera, boolean frigobar) {
         super(habitacion);
         super.setPrecioBase(PRECIO_BASE_ESTANDAR);
@@ -17,7 +18,11 @@ public class HabitacionEstandar extends HabitacionEconomica {
         this.bañera = bañera;
         this.frigobar = frigobar;
     }
-    //constructor para el siguiente tipo de habitación que va a tener estos atributos en true
+
+    /**
+     * Constructor diseñado para el tipo de habitación que hereda de esta, la cual va a tener todas las comodidades
+     * incluidas.
+     */
     public HabitacionEstandar(ETipoHabitacion habitacion) {
         super(habitacion);
         super.setPrecioBase(PRECIO_BASE_ESTANDAR);
@@ -26,6 +31,10 @@ public class HabitacionEstandar extends HabitacionEconomica {
         this.frigobar = true;
     }
 
+    /**
+     * Método heredado y sobreescrito para calcular el costo adicional.
+     * @return retorna el costo adicional según las comodidades elejidas por el usuario.
+     */
     @Override
     public double calcularCostoAdiconal() {
         double adicional = 0;
