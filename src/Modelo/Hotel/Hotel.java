@@ -1,10 +1,6 @@
 package Modelo.Hotel;
 
-import Enums.ETipoHabitacion;
 import Modelo.Habitaciones.Habitacion;
-import Modelo.Habitaciones.HabitacionEconomica;
-import Modelo.Habitaciones.HabitacionEstandar;
-import Modelo.Habitaciones.HabitacionPremium;
 import Modelo.Persona.Persona;
 
 import java.io.*;
@@ -12,12 +8,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Hotel implements Serializable {
-
     private HashMap<Integer,Habitacion> listaHabitaciones; //(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
     private ArrayList<Persona> historialPersonas;
     private HashMap<Persona,Check> registroChekcs; //guardamos los checks por persona
-
 
     public Hotel() {
         this.listaHabitaciones = new HashMap<Integer,Habitacion>();
@@ -26,8 +20,6 @@ public class Hotel implements Serializable {
         registroChekcs = new HashMap<>();
         cargarDesdeArchivo();
     }
-
-
 
     private void cargarDesdeArchivo()
     {
@@ -78,9 +70,12 @@ public class Hotel implements Serializable {
         }
     }
 
+    /**
+     * Método para mostrar la lista de habitaciones con su disponibilidad.
+     * @return retorna un string con los datos de todas las habitaciones del hotel.
+     */
     public String mostrarHabitaciones()
     {
       return listaHabitaciones.toString();
     }
-
 }

@@ -2,6 +2,9 @@ package Modelo.Persona;
 
 import java.io.Serializable;
 
+/**
+ * Clase que detalla todos los datos pertinentes al domicilio de la persona que realiza la reserva.
+ */
 public class Domicilio implements Serializable {
     private String nombreCalle;
     private String altura;
