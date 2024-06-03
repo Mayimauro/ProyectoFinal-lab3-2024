@@ -1,15 +1,13 @@
 package Modelo.Persona;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Clase la cual detalla todos los datos pertinentes a la persona que realiza la reserva.
  */
 public class Persona implements Serializable {
     private static final long serialVersionUID =1L;
+
     private String nombre;
     private String apellido;
     private String DNI;
@@ -26,11 +24,22 @@ public class Persona implements Serializable {
         this.domicilio = domicilio;
     }
 
+    public void guardarPersona(Persona persona) {
+        boolean existe = new File("Personas.ser").exists();
+        try (FileOutputStream fos = new FileOutputStream("Personas.ser", true);
+             ObjectOutputStream oos = existe ? new AppendingObjectOutputStream(fos) : new ObjectOutputStream(fos)) {
+            oos.writeObject(persona);
+            System.out.println("Persona " + persona + " guardada con éxito.");
+        } catch (IOException e) {
+            System.out.println("Error guardando persona: " + e.getMessage());
+        }
+    }
+
     public void agregarAlArchivo(Persona persona) {
         try (FileOutputStream fileOut = new FileOutputStream("Personas.ser", true);
-             ObjectOutputStream out = true ? new AppendingObjectOutputStream(fileOut) : new ObjectOutputStream(fileOut)) {
+             ObjectOutputStream out = new AppendingObjectOutputStream(fileOut)) {
             out.writeObject(persona);
-            System.out.println("El objeto ha sido guardado en " + "Personas.txt");
+            System.out.println("El objeto ha sido guardado en " + "Personas.ser");
         } catch (IOException i) {
             i.printStackTrace();
         }

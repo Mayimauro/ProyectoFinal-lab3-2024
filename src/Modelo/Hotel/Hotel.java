@@ -1,6 +1,10 @@
 package Modelo.Hotel;
 
+import Enums.ETipoHabitacion;
 import Modelo.Habitaciones.Habitacion;
+import Modelo.Habitaciones.HabitacionEconomica;
+import Modelo.Habitaciones.HabitacionEstandar;
+import Modelo.Habitaciones.HabitacionPremium;
 import Modelo.Persona.Persona;
 
 import java.io.*;
@@ -9,6 +13,7 @@ import java.util.HashMap;
 
 public class Hotel implements Serializable {
     private static final long serialVersionUID =1L;
+
     private HashMap<Integer,Habitacion> listaHabitaciones; //(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
     private ArrayList<Persona> historialPersonas;
@@ -19,8 +24,48 @@ public class Hotel implements Serializable {
         this.reservas = new ArrayList<>();
         historialPersonas = new ArrayList<>();
         registroChekcs = new HashMap<>();
+        //agregarHabitacionesXArchivo();
         cargarDesdeArchivo();
+        cargarPersonasLista();
     }
+
+    /**
+     * con esta funcion cargamos habitraciones dentro de nuestro hotel desde un archivo
+     * va a ser borrada una vez tengamos todos el archivo en nuestras pc
+     * para usar descomentar la funcion en el constructor ir al main y darle al play
+     */
+    private void agregarHabitacionesXArchivo()
+    {
+        HashMap<Integer,Habitacion> Habitaciones = new HashMap<>();
+        HabitacionPremium p1 = new HabitacionPremium(ETipoHabitacion.DOBLE_TIPO_1,true,true);
+        HabitacionPremium p2 = new HabitacionPremium(ETipoHabitacion.DOBLE_TIPO_2,true,true);
+        HabitacionPremium p3 = new HabitacionPremium(ETipoHabitacion.TRIPLE,true,true);
+        HabitacionEstandar e1 = new HabitacionEstandar(ETipoHabitacion.DOBLE_TIPO_1,true,true,true);
+        HabitacionEstandar e2 = new HabitacionEstandar(ETipoHabitacion.TRIPLE,true,true,true);
+        HabitacionEconomica eco1 = new HabitacionEconomica(ETipoHabitacion.DOBLE_TIPO_1,true);
+        HabitacionEconomica eco2 = new HabitacionEconomica(ETipoHabitacion.DOBLE_TIPO_1,true);
+        HabitacionEconomica eco3 = new HabitacionEconomica(ETipoHabitacion.DOBLE_TIPO_2,false);
+        Habitaciones.put(1,eco1);
+        Habitaciones.put(2,eco2);
+        Habitaciones.put(3,eco3);
+        Habitaciones.put(4,e1);
+        Habitaciones.put(5,e2);
+        Habitaciones.put(6,p1);
+        Habitaciones.put(7,p2);
+        Habitaciones.put(8,p3);
+
+        try (FileOutputStream fos = new FileOutputStream("ListaHabitaciones.ser");
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+            oos.writeObject(Habitaciones);
+            System.out.println("HashMap ha sido serializado y guardado en hashmap.ser");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     private void cargarDesdeArchivo()
     {
@@ -48,27 +93,26 @@ public class Hotel implements Serializable {
             System.err.println("Clase no encontrada al deserializar el archivo.");
             e.printStackTrace();
         }
+    }
 
-        /**
-         * arreglar
-         * no carga las personas del archivo a la lista
-         */
-
-        try (FileInputStream fileIn = new FileInputStream("Personas.ser");
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+    public void cargarPersonasLista()
+    {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Personas.ser"))) {
             while (true) {
                 try {
-                   Persona persona = (Persona) in.readObject();
-                    System.out.printf("\n\n\n----"+persona.toString()+"---\n\n\n");
-                   historialPersonas.add(persona);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    Persona persona = (Persona) ois.readObject();
+                    System.out.printf("\n----cargada en la lista en clase hotel "+persona.toString()+"---\n");
+                    historialPersonas.add(persona);
+                } catch (EOFException e) {
+                    break; // Hemos llegado al final del archivo
                 }
             }
-        } catch (IOException e) {
-            System.out.printf("\n\n\n----final del archivo---\n\n\n");
-            // Se alcanzó el final del archivo
+        } catch (FileNotFoundException e) {
+            System.out.println("El archivo Personas.ser no existe. Se creará uno nuevo cuando se guarde una persona.");
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error cargando personas: " + e.getMessage());
         }
+
     }
 
     /**

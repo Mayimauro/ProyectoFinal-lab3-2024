@@ -12,13 +12,10 @@ import Modelo.Persona.Persona;
 public class Main {
     public static void main(String[] args) {
 
-        InterfazGrafica pantalla = new InterfazGrafica();
-//        pantalla.Pantalla1();
+        //InterfazGrafica pantalla = new InterfazGrafica();
+//       pantalla.Pantalla1();
 
-
-        Habitacion A1 = new HabitacionPremium(ETipoHabitacion.DOBLE_TIPO_1,true,true);
-
-//        System.out.println(A1.costoFinalHabitacion());
+        Hotel hotel = new Hotel();
 
         Domicilio domicilio = new Domicilio("a","1",false,"casa","bs","mar","1233");
         Persona persona = new Persona("Lud","i","123","ll","333",domicilio);
@@ -27,10 +24,11 @@ public class Main {
         Domicilio domicilio3 = new Domicilio("c","1",false,"casa","bs","mar","1233");
         Persona persona3 = new Persona("May","i","789","mm","333",domicilio3);
 
+        System.out.printf(hotel.mostrarHabitaciones());
 
-        persona.agregarAlArchivo(persona);
-        persona2.agregarAlArchivo(persona2);
-        persona3.agregarAlArchivo(persona3);
+        Habitacion A1 = new HabitacionPremium(ETipoHabitacion.DOBLE_TIPO_1,true,true);
+
+//        System.out.println(A1.costoFinalHabitacion());
 
 
         Reserva r1 = new Reserva("2024-06-20","2024-07-15",persona,A1);
