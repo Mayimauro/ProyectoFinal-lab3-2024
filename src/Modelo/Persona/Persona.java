@@ -9,6 +9,7 @@ import java.io.Serializable;
  * Clase la cual detalla todos los datos pertinentes a la persona que realiza la reserva.
  */
 public class Persona implements Serializable {
+    private static final long serialVersionUID =1L;
     private String nombre;
     private String apellido;
     private String DNI;
@@ -29,7 +30,7 @@ public class Persona implements Serializable {
         try (FileOutputStream fileOut = new FileOutputStream("Personas.ser", true);
              ObjectOutputStream out = true ? new AppendingObjectOutputStream(fileOut) : new ObjectOutputStream(fileOut)) {
             out.writeObject(persona);
-            System.out.println("El objeto ha sido guardado en " + "Personas.ser");
+            System.out.println("El objeto ha sido guardado en " + "Personas.txt");
         } catch (IOException i) {
             i.printStackTrace();
         }

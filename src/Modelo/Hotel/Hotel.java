@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Hotel implements Serializable {
+    private static final long serialVersionUID =1L;
     private HashMap<Integer,Habitacion> listaHabitaciones; //(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
     private ArrayList<Persona> historialPersonas;

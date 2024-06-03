@@ -20,13 +20,13 @@ public class InterfazGrafica {
     {
         System.out.printf("\n--Bienvenido a ConoComodin--\n");
         System.out.printf("\n--que desea hacer?--\n");
-        System.out.printf("\n1)Iniciar secion.\n");
+        System.out.printf("\n1)Iniciar sesion.\n");
         System.out.printf("\n2)Registrarse.\n");
         System.out.printf("\n3)Salir.\n");
         int opcion = teclado.nextInt();
         switch (opcion){
             case 1:
-                iniciarSecion();
+                iniciarSesion();
                 PantallaPasajero();
                 break;
                 case 2:
@@ -48,7 +48,6 @@ public class InterfazGrafica {
         System.out.printf("\t\t\tBienvenido pasajero\n");
         System.out.printf("\t\t\tQue le gustaria hacer?\n");
         System.out.printf("\t\t\t1)Alquilar una habitacion.\n");
-        System.out.printf("\t\t\t1)Alquilar una habitacion.\n");
         System.out.printf("\t\t\t2)Salir.\n");
         int opcion = teclado.nextInt();
         switch (opcion){
@@ -59,9 +58,9 @@ public class InterfazGrafica {
 
 
 
-    private void iniciarSecion()
+    private void iniciarSesion()
     {
-        System.out.printf("\t\t\tEmal: ");
+        System.out.printf("\t\t\tEmail: ");
         String email = teclado.next();
         System.out.printf("\t\t\tContraseña: ");
         String pass = teclado.next();
