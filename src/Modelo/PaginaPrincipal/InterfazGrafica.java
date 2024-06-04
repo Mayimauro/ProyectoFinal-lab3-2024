@@ -9,24 +9,22 @@ import java.util.Scanner;
 
 public class InterfazGrafica {
     private Scanner teclado;
-    private Hotel hotel;
 
     public InterfazGrafica() {
         this.teclado = new Scanner(System.in);;
-        this.hotel = new Hotel();
     }
 
     public void Pantalla1()
     {
         System.out.printf("\n--Bienvenido a ConoComodin--\n");
         System.out.printf("\n--que desea hacer?--\n");
-        System.out.printf("\n1)Iniciar sesion.\n");
+        System.out.printf("\n1)Iniciar secion.\n");
         System.out.printf("\n2)Registrarse.\n");
         System.out.printf("\n3)Salir.\n");
         int opcion = teclado.nextInt();
         switch (opcion){
             case 1:
-                iniciarSesion();
+                iniciarSecion();
                 PantallaPasajero();
                 break;
                 case 2:
@@ -48,19 +46,20 @@ public class InterfazGrafica {
         System.out.printf("\t\t\tBienvenido pasajero\n");
         System.out.printf("\t\t\tQue le gustaria hacer?\n");
         System.out.printf("\t\t\t1)Alquilar una habitacion.\n");
+        System.out.printf("\t\t\t1)Alquilar una habitacion.\n");
         System.out.printf("\t\t\t2)Salir.\n");
         int opcion = teclado.nextInt();
         switch (opcion){
             case 1:
-                System.out.printf("Habitaciones Disponibles: + \n"+hotel.mostrarHabitaciones());
+
         }
     }
 
 
 
-    private void iniciarSesion()
+    private void iniciarSecion()
     {
-        System.out.printf("\t\t\tEmail: ");
+        System.out.printf("\t\t\tEmal: ");
         String email = teclado.next();
         System.out.printf("\t\t\tContraseña: ");
         String pass = teclado.next();
@@ -151,14 +150,6 @@ public class InterfazGrafica {
         String provincia = teclado.next();
         System.out.printf("\nCodigo Postal: ");
         String codigoPostal = teclado.next();
-
-
-        Domicilio d1 = new Domicilio(calle,altura,depto,departamento,provincia,localidad,codigoPostal);
-        Persona p1 = new Persona(nombre,apellido,dni,mail,contrasena,d1);
-        p1.agregarAlArchivo(p1);
-
-
-
 
     }
 

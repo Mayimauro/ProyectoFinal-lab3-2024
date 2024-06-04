@@ -6,6 +6,9 @@ import java.io.Serializable;
  * Clase que detalla todos los datos pertinentes al domicilio de la persona que realiza la reserva.
  */
 public class Domicilio implements Serializable {
+
+    private static final long serialVersionUID =-5014989214721910302L;
+
     private String nombreCalle;
     private String altura;
     private boolean depto;

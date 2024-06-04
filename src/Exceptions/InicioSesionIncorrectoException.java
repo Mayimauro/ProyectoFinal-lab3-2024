@@ -8,8 +8,11 @@ import java.io.IOException;
  */
 public class InicioSesionIncorrectoException extends IOException {
     public InicioSesionIncorrectoException() {
-        super();
-        System.out.println("Usuario o contraseña incorrecto.");
+        super("Usuario o contraseña incorrecto.");
+    }
+
+    public InicioSesionIncorrectoException(String message) {
+        super(message);
     }
 
 }

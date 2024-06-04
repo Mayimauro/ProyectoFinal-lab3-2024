@@ -1,6 +1,7 @@
 package Modelo.Persona;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * Clase la cual detalla todos los datos pertinentes a la persona que realiza la reserva.
@@ -24,14 +25,34 @@ public class Persona implements Serializable {
         this.domicilio = domicilio;
     }
 
-    public void guardarPersona(Persona persona) {
-        boolean existe = new File("Personas.ser").exists();
-        try (FileOutputStream fos = new FileOutputStream("Personas.ser", true);
-             ObjectOutputStream oos = existe ? new AppendingObjectOutputStream(fos) : new ObjectOutputStream(fos)) {
-            oos.writeObject(persona);
-            System.out.println("Persona " + persona + " guardada con éxito.");
+    //metodos
+    public void agregarDomicilio(Domicilio domicilio) {
+        this.domicilio = domicilio;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    //archivos
+
+    public void reiniciarArchivo() {
+        try {
+            File archivo = new File("Personas.ser");
+            if (archivo.exists()) {
+                archivo.delete();
+            }
+            archivo.createNewFile();
         } catch (IOException e) {
-            System.out.println("Error guardando persona: " + e.getMessage());
+            System.err.println("Error al reiniciar el archivo: " + e.getMessage());
         }
     }
 
@@ -44,8 +65,7 @@ public class Persona implements Serializable {
             i.printStackTrace();
         }
     }
-
-    private static class AppendingObjectOutputStream extends ObjectOutputStream {
+    public static class AppendingObjectOutputStream extends ObjectOutputStream {
         public AppendingObjectOutputStream(FileOutputStream out) throws IOException {
             super(out);
         }
@@ -60,6 +80,8 @@ public class Persona implements Serializable {
         return "Persona{" +
                 "nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", DNI='" + DNI;
+                ", DNI='" + DNI+
+                ", mail = " +mail+
+                ", contra = " +contrasena;
     }
 }

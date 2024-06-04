@@ -1,6 +1,7 @@
 package Modelo.Hotel;
 
 import Enums.ETipoHabitacion;
+import Exceptions.InicioSesionIncorrectoException;
 import Modelo.Habitaciones.Habitacion;
 import Modelo.Habitaciones.HabitacionEconomica;
 import Modelo.Habitaciones.HabitacionEstandar;
@@ -10,18 +11,21 @@ import Modelo.Persona.Persona;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Hotel implements Serializable {
     private static final long serialVersionUID =1L;
 
     private HashMap<Integer,Habitacion> listaHabitaciones; //(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
+    private ArrayList<Persona> usuarios;
     private ArrayList<Persona> historialPersonas;
     private HashMap<Persona,Check> registroChekcs; //guardamos los checks por persona
 
     public Hotel() {
         this.listaHabitaciones = new HashMap<Integer,Habitacion>();
         this.reservas = new ArrayList<>();
+        this.usuarios = new ArrayList<>();
         historialPersonas = new ArrayList<>();
         registroChekcs = new HashMap<>();
         //agregarHabitacionesXArchivo();
@@ -29,6 +33,43 @@ public class Hotel implements Serializable {
         cargarPersonasLista();
     }
 
+    //metodos
+
+    public int validarUsuario(String mail, String password) throws InicioSesionIncorrectoException {
+
+        for (Persona persona : usuarios) {
+
+            if(persona.getMail().equals(mail) && persona.getContrasena().equals(password)) {
+                if(mail.contains("@admin.com"))
+                {
+                    return 1;
+                } else if (mail.contains("@conserje.com")) {
+                    return 2;
+                }else {
+                    return 0;
+                }
+            }
+        }
+        throw new InicioSesionIncorrectoException();
+    }
+
+    public Persona buscarPersona(String mail, String password)
+    {
+        for (Persona persona : usuarios) {
+
+            if(persona.getMail().equals(mail) && persona.getContrasena().equals(password)) {
+                return persona;
+            }
+        }
+        return null;
+    }
+
+    public HashMap<Integer,Habitacion> getListaHabitaciones() {
+        return listaHabitaciones;
+    }
+
+
+    //archivos
     /**
      * con esta funcion cargamos habitraciones dentro de nuestro hotel desde un archivo
      * va a ser borrada una vez tengamos todos el archivo en nuestras pc
@@ -64,9 +105,6 @@ public class Hotel implements Serializable {
             e.printStackTrace();
         }
     }
-
-
-
     private void cargarDesdeArchivo()
     {
         String filePath = "ListaHabitaciones.ser";
@@ -97,30 +135,56 @@ public class Hotel implements Serializable {
 
     public void cargarPersonasLista()
     {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Personas.ser"))) {
+        try (FileInputStream fileIn = new FileInputStream("Personas.ser");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
             while (true) {
                 try {
-                    Persona persona = (Persona) ois.readObject();
-                    System.out.printf("\n----cargada en la lista en clase hotel "+persona.toString()+"---\n");
-                    historialPersonas.add(persona);
+                    Object obj = in.readObject();
+                    if (obj instanceof Persona) {
+                        usuarios.add((Persona) obj);
+                    } else {
+                        System.err.println("Objeto de tipo inesperado encontrado: " + obj.getClass().getName());
+                    }
                 } catch (EOFException e) {
-                    break; // Hemos llegado al final del archivo
+                    break; // Fin del archivo
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("El archivo Personas.ser no existe. Se creará uno nuevo cuando se guarde una persona.");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error cargando personas: " + e.getMessage());
+        } catch (IOException | ClassNotFoundException i) {
+            System.err.println("Error cargando personas: " + i.getMessage());
+            i.printStackTrace();
         }
 
     }
 
     /**
-     * Método para mostrar la lista de habitaciones con su disponibilidad.
+     * Método para mostrar la lista de habitaciones disponibles.
+     * @return retorna un string con los datos de las habitaciones disponibles.
+     */
+    public String mostrarHabitacionesDisponibles()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
+            if(entry.getValue().isDisponibilidad())
+            {
+                sb.append("Habitacion= ").append(entry.getKey())
+                        .append(", ").append(entry.getValue().toString())
+                        .append("\n");
+            }
+        }
+        return sb.toString();
+    }
+    /**
+     * Método para mostrar la lista de habitaciones
      * @return retorna un string con los datos de todas las habitaciones del hotel.
      */
-    public String mostrarHabitaciones()
+    public String mostrarHabitacionesConNumero()
     {
-      return listaHabitaciones.toString();
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
+            sb.append("Habitacion= ").append(entry.getKey())
+                    .append(", ").append(entry.getValue().toString())
+                    .append("\n");
+        }
+        return sb.toString();
     }
 }
