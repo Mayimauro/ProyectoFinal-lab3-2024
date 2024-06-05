@@ -30,7 +30,7 @@ public class Hotel implements Serializable {
         historialPersonas = new ArrayList<>();
         registroChekcs = new HashMap<>();
         //agregarHabitacionesXArchivo();
-        //cargarDesdeArchivo();
+        cargarDesdeArchivo();
         usuarios = cargarPersonasLista("Usuarios");
     }
 
@@ -69,6 +69,10 @@ public class Hotel implements Serializable {
         return listaHabitaciones;
     }
 
+    public Habitacion getHabitacion(int key)
+    {
+        return listaHabitaciones.get(key);
+    }
 
     //archivos
     /**
@@ -186,5 +190,9 @@ public class Hotel implements Serializable {
                     .append("\n");
         }
         return sb.toString();
+    }
+
+    public void agregarReserva(Reserva r1) {
+        reservas.add(r1);
     }
 }

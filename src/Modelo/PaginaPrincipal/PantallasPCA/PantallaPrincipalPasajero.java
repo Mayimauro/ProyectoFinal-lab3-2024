@@ -1,7 +1,6 @@
 package Modelo.PaginaPrincipal.PantallasPCA;
 
 import Modelo.Hotel.Hotel;
-import Modelo.PaginaPrincipal.PantallasAlquiler.AlquilarHabitacion;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaReserva;
 import Modelo.Persona.Persona;
 
@@ -17,7 +16,7 @@ public class PantallaPrincipalPasajero extends JFrame {
     private JButton alquileresButton;
     private JButton frigobarButton;
     private JButton servicioAlCuartoButton1;
-    private JButton consultarButton;
+    private JButton realizarCheckInButton;
     private JButton verGastosButton;
 
     public PantallaPrincipalPasajero(Hotel hotel, Persona p) {
@@ -32,11 +31,13 @@ public class PantallaPrincipalPasajero extends JFrame {
         alquilarUnaHabitacionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 PantallaReserva reserva = new PantallaReserva(hotel,p);
-
-
-
+            }
+        });
+        realizarCheckInButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+             //completar
             }
         });
     }

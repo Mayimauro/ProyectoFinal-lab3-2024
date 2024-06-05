@@ -5,6 +5,7 @@ import Modelo.Persona.Persona;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Reserva {
     private LocalDate fechaReserva;
@@ -14,14 +15,13 @@ public class Reserva {
     private Habitacion habitacion;
     private double precioPorDia;
 
-    public Reserva( String fechaIngreso, String fechaSalida, Persona persona, Habitacion habitacion) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public Reserva(LocalDate fechaIngreso, LocalDate fechaSalida, Persona persona) {
         this.fechaReserva = LocalDate.now();
-        this.fechaIngreso = LocalDate.parse(fechaIngreso, formatter);
-        this.fechaSalida = LocalDate.parse(fechaSalida, formatter);
+        this.fechaIngreso = fechaIngreso;
+        this.fechaSalida = fechaSalida;
         this.persona = persona;
-        this.habitacion = habitacion;
-        precioPorDia = habitacion.costoFinalHabitacion();
+        this.habitacion = null;
+        precioPorDia = 0;
     }
 
     /**
@@ -29,10 +29,17 @@ public class Reserva {
      * ingresadas al realizar la reserva.
      * @return retorna la cantidad de días.
      */
-    private int calcularDias()
+    public int calcularDias()
     {
         long daysBetween = fechaSalida.toEpochDay() - fechaIngreso.toEpochDay();
         return (int) daysBetween;
+    }
+
+
+    public void asignarHabitacion(Habitacion hab)
+    {
+        habitacion = hab;
+        precioPorDia = habitacion.costoFinalHabitacion();
     }
 
     /**
@@ -47,5 +54,16 @@ public class Reserva {
             return precioPorDia*dias;
             
         }else return precioPorDia;
+    }
+
+
+    @Override
+    public String toString() {
+        return "reserva hecha = " + fechaReserva +
+                "\n check in=" + fechaIngreso +
+                "\n check out=" + fechaSalida +
+                "\n a nombre de=" + persona.getNombre() +
+                "\n habitacion=" + habitacion +
+                "\n precioPorDia=" + precioPorDia;
     }
 }

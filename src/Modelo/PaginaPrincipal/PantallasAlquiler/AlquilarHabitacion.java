@@ -1,6 +1,8 @@
 package Modelo.PaginaPrincipal.PantallasAlquiler;
 
+import Modelo.Habitaciones.Habitacion;
 import Modelo.Hotel.Hotel;
+import Modelo.Hotel.Reserva;
 import Modelo.Persona.Persona;
 
 import javax.swing.*;
@@ -15,7 +17,7 @@ public class AlquilarHabitacion extends JFrame{
     private JButton cancelarButton;
     private JLabel habitaciones;
 
-    public AlquilarHabitacion(Hotel hotel, Persona p) {
+    public AlquilarHabitacion(Hotel hotel, Persona p, Reserva r1) {
 
         String habitacion = hotel.mostrarHabitacionesDisponibles();
 
@@ -51,6 +53,12 @@ public class AlquilarHabitacion extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(comboBox1.getSelectedIndex() != -1 ){
+
+                    r1.asignarHabitacion(hotel.getHabitacion(comboBox1.getSelectedIndex()+1));
+                    hotel.agregarReserva(r1);
+                    JOptionPane.showMessageDialog(null,"Alquiler completo");
+                    JOptionPane.showMessageDialog(null,"detalles :"+ r1);
+                    setVisible(false);
 
                 }else {
                     JOptionPane.showMessageDialog(null,"Por favor seleccione una habitacion");

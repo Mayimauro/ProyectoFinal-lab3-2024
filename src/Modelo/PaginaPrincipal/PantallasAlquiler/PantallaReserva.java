@@ -1,6 +1,7 @@
 package Modelo.PaginaPrincipal.PantallasAlquiler;
 
 import Modelo.Hotel.Hotel;
+import Modelo.Hotel.Reserva;
 import Modelo.Persona.Persona;
 import com.toedter.calendar.JCalendar;
 
@@ -10,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 
@@ -52,7 +54,15 @@ public class PantallaReserva extends JFrame{
                         .atZone(ZoneId.systemDefault())
                         .toLocalDate();
 
-                JOptionPane.showMessageDialog(null, "fecha ingreso: "+ld1+ "\nfecha salida: " + ld2);
+                Reserva r1 = new Reserva(ld1,ld2,p);
+                if(r1.calcularDias()<0)
+                {
+                    JOptionPane.showMessageDialog(null, "Reserva fallida-seleccione fechas validas");
+                }else{
+                    AlquilarHabitacion alquilarHabitacion = new AlquilarHabitacion(hotel,p,r1);
+                    setVisible(false);
+                }
+
             }
         });
     }
