@@ -49,8 +49,10 @@ public class PantallaRegistro extends JFrame{
                             String sApellido = apellido.getText();
                             String sDni = dni.getText();
                             String sMail = mail.getText();
-                            String sContraseña = Arrays.toString(contraseña.getPassword());
 
+                            char[] passwordChars = contraseña.getPassword();
+                            // Convertir el char[] a String
+                            String sContraseña = new String(passwordChars);
 
                             Persona p = new Persona(sNombre,sApellido,sDni,sMail,sContraseña,null);
                             PantallaDomicilio domicilio = new PantallaDomicilio(p);

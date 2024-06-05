@@ -56,24 +56,38 @@ public class Persona implements Serializable {
         }
     }
 
+
     public void agregarAlArchivo(Persona persona) {
-        try (FileOutputStream fileOut = new FileOutputStream("Personas.ser", true);
-             ObjectOutputStream out = new AppendingObjectOutputStream(fileOut)) {
-            out.writeObject(persona);
-            System.out.println("El objeto ha sido guardado en " + "Personas.ser");
-        } catch (IOException i) {
-            i.printStackTrace();
+        ArrayList<Persona> personas = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Usuarios"))) {
+            while (true) {
+                try {
+                    Persona userArchi = (Persona) ois.readObject();
+                    personas.add(userArchi);
+                } catch (EOFException eof) {
+                    break; // Fin del archivo alcanzado
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        personas.add(persona);
+        escribirArchivo(personas);
+    }
+
+
+    public void escribirArchivo(ArrayList<Persona> usuarios) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("Usuarios"))) {
+            for (Persona persona : usuarios) {
+                oos.writeObject(persona);
+            }
+            System.out.println("Archivo serializado exitosamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
-    public static class AppendingObjectOutputStream extends ObjectOutputStream {
-        public AppendingObjectOutputStream(FileOutputStream out) throws IOException {
-            super(out);
-        }
-        @Override
-        protected void writeStreamHeader() throws IOException {
-            reset(); // Resetea el encabezado para no escribir uno nuevo
-        }
-    }
+
 
     @Override
     public String toString() {

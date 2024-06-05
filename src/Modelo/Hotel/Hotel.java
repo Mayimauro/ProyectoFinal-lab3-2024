@@ -11,6 +11,7 @@ import Modelo.Persona.Persona;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Hotel implements Serializable {
@@ -29,8 +30,8 @@ public class Hotel implements Serializable {
         historialPersonas = new ArrayList<>();
         registroChekcs = new HashMap<>();
         //agregarHabitacionesXArchivo();
-        cargarDesdeArchivo();
-        cargarPersonasLista();
+        //cargarDesdeArchivo();
+        usuarios = cargarPersonasLista("Usuarios");
     }
 
     //metodos
@@ -133,26 +134,25 @@ public class Hotel implements Serializable {
         }
     }
 
-    public void cargarPersonasLista()
+    public ArrayList<Persona> cargarPersonasLista(String nombreArchivo)
     {
-        try (FileInputStream fileIn = new FileInputStream("Personas.ser");
-             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+        ArrayList<Persona> personas = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nombreArchivo))) {
             while (true) {
                 try {
-                    Object obj = in.readObject();
-                    if (obj instanceof Persona) {
-                        usuarios.add((Persona) obj);
-                    } else {
-                        System.err.println("Objeto de tipo inesperado encontrado: " + obj.getClass().getName());
-                    }
-                } catch (EOFException e) {
-                    break; // Fin del archivo
+                    Persona persona = (Persona) ois.readObject();
+                    System.out.printf("\n----cargada en la lista en clase hotel "+persona.toString()+"---\n");
+                    personas.add(persona);
+                } catch (EOFException eof) {
+                    break; // Fin del archivo alcanzado
                 }
             }
-        } catch (IOException | ClassNotFoundException i) {
-            System.err.println("Error cargando personas: " + i.getMessage());
-            i.printStackTrace();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
+
+        return personas;
 
     }
 
