@@ -40,5 +40,11 @@ public class PantallaPrincipalPasajero extends JFrame {
              //completar
             }
         });
+        alquileresButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(null,hotel.mostrarAlquileresPorPasajero(p));
+            }
+        });
     }
 }

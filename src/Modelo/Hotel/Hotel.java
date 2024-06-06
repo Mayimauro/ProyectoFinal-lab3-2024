@@ -20,15 +20,11 @@ public class Hotel implements Serializable {
     private HashMap<Integer,Habitacion> listaHabitaciones; //(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
     private ArrayList<Persona> usuarios;
-    private ArrayList<Persona> historialPersonas;
-    private HashMap<Persona,Check> registroChekcs; //guardamos los checks por persona
 
     public Hotel() {
         this.listaHabitaciones = new HashMap<Integer,Habitacion>();
         this.reservas = new ArrayList<>();
         this.usuarios = new ArrayList<>();
-        historialPersonas = new ArrayList<>();
-        registroChekcs = new HashMap<>();
         //agregarHabitacionesXArchivo();
         cargarDesdeArchivo();
         usuarios = cargarPersonasLista("Usuarios");
@@ -177,6 +173,7 @@ public class Hotel implements Serializable {
         }
         return sb.toString();
     }
+
     /**
      * Método para mostrar la lista de habitaciones
      * @return retorna un string con los datos de todas las habitaciones del hotel.
@@ -188,6 +185,19 @@ public class Hotel implements Serializable {
             sb.append("Habitacion= ").append(entry.getKey())
                     .append(", ").append(entry.getValue().toString())
                     .append("\n");
+        }
+        return sb.toString();
+    }
+
+    public String mostrarAlquileresPorPasajero(Persona pasajero)
+    {
+        StringBuilder sb = new StringBuilder();
+        for(Reserva r : reservas)
+        {
+            if(r.getPersona().equals(pasajero))
+            {
+                //hacer strign builder
+            }
         }
         return sb.toString();
     }

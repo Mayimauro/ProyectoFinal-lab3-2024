@@ -39,7 +39,7 @@ public class PantallaRegistro extends JFrame{
                 //verifica que ningun campo este vacio
                 if(!nombre.getText().isEmpty() && !apellido.getText().isEmpty() && !mail.getText().isEmpty()
                         && !contraseña.getText().isEmpty() && !dni.getText().isEmpty() && !repetirContraseña.getText().isEmpty()){
-                    if(mail.getText().contains("@")){
+                    if(mail.getText().contains("@") && (mail.getText().contains("@admin.com") || mail.getText().contains("@conserje.com"))){
 
                         char[] password1 = contraseña.getPassword();
                         char[] password2 = repetirContraseña.getPassword();

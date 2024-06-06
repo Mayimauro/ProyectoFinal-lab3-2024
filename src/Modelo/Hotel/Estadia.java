@@ -11,13 +11,10 @@ import java.time.LocalDate;
  * encontró en el hotel, maneja los checks y muestra los consumos, si los tuviera.
  */
 public class Estadia {
-    private LocalDate fechaIngreso;
-    private LocalDate fechaSalida;
     private Persona pasajero;
     private Check check;
     private Habitacion habitacion;
     private ServicioHabitacion servicioHabitacion;
-    //consumos
 
     /**
      *
@@ -27,10 +24,8 @@ public class Estadia {
      *
      */
     public Estadia(LocalDate fechaIngreso, LocalDate fechaSalida, Persona pasajero, Habitacion habitacion) {
-        this.fechaIngreso = fechaIngreso;
-        this.fechaSalida = fechaSalida;
-        this.pasajero = pasajero;
         check = new Check(fechaIngreso,fechaSalida);
+        this.pasajero = pasajero;
         this.habitacion = habitacion;
         if(habitacion.getClass().getName().equals("Modelo.Habitaciones.HabitacionEstandar") || habitacion.getClass().getName().equals("Modelo.Habitaciones.HabitacionPremium"))
         {
@@ -39,11 +34,6 @@ public class Estadia {
         }else {
             servicioHabitacion = new ServicioHabitacion(habitacion,null);
         }
-
     }
 
-    public void realizarCheckOut(LocalDate fechaSalida)
-    {
-        check.cambiarFechaEgreso(fechaSalida);
-    }
 }

@@ -1,18 +1,6 @@
-import Enums.EEstadoHabitacion;
-import Enums.ETipoHabitacion;
 import Exceptions.InicioSesionIncorrectoException;
-import Modelo.Habitaciones.Habitacion;
-import Modelo.Habitaciones.HabitacionEstandar;
-import Modelo.Habitaciones.HabitacionPremium;
 import Modelo.Hotel.Hotel;
-import Modelo.Hotel.Reserva;
-import Modelo.PaginaPrincipal.PantallasISRD.PantallaInicioSecion;
-import Modelo.Persona.Domicilio;
-import Modelo.Persona.Persona;
-
-import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import Modelo.PaginaPrincipal.PantallasISRD.PantallaInicioSesion;
 
 public class Main {
     public static void main(String[] args) throws InicioSesionIncorrectoException {
@@ -52,7 +40,7 @@ public class Main {
         /**
          * DESCOMENTAR PARA EJECUTAR LA INTERFAZ GRAFICA
          */
-        PantallaInicioSecion frame = new PantallaInicioSecion(hotel);
+        PantallaInicioSesion frame = new PantallaInicioSesion(hotel);
 
     }
 

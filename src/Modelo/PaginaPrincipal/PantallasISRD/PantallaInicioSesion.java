@@ -11,7 +11,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PantallaInicioSecion extends JFrame{
+public class PantallaInicioSesion extends JFrame{
     private JTextField Usuario;
     private JButton iniciarSecionButton;
     private JButton salirButton1;
@@ -20,7 +20,7 @@ public class PantallaInicioSecion extends JFrame{
     private JButton registrarseButton;
 
 
-    public PantallaInicioSecion(Hotel hotel) throws InicioSesionIncorrectoException{
+    public PantallaInicioSesion(Hotel hotel) throws InicioSesionIncorrectoException{
         setTitle("Inicio de sesion");
         setSize(450,300);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

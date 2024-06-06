@@ -35,6 +35,9 @@ public class Reserva {
         return (int) daysBetween;
     }
 
+    public Persona getPersona() {
+        return persona;
+    }
 
     public void asignarHabitacion(Habitacion hab)
     {
