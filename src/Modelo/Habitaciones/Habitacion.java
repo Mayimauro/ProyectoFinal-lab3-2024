@@ -12,17 +12,13 @@ import java.io.Serializable;
  */
 public abstract class Habitacion implements Serializable, ICalcularCostoAdicional {
     private ETipoHabitacion habitacion;
-    private int numero;
     private double precioBase;
-    //private double costoAdicional;
     private boolean disponibilidad;
     private EEstadoHabitacion estado;
 
     public Habitacion(ETipoHabitacion habitacion) {
         this.habitacion = habitacion;
-        //this.numero = numero; //hacerlo autoincremental, crear funcion
         this.precioBase = 0;
-        //this.costoAdicional = costoAdicional; //calcularlo con funcion
         this.disponibilidad = true;
         this.estado = EEstadoHabitacion.DISPONIBLE;
     }
@@ -33,14 +29,6 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
 
     public void setHabitacion(ETipoHabitacion habitacion) {
         this.habitacion = habitacion;
-    }
-
-    public int getNumero() {
-        return numero;
-    }
-
-    public void setNumero(int numero) {
-        this.numero = numero;
     }
 
     public double getPrecioBase() {

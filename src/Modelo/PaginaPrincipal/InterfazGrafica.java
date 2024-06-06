@@ -1,9 +1,5 @@
 package Modelo.PaginaPrincipal;
 
-import Modelo.Hotel.Hotel;
-import Modelo.Persona.Domicilio;
-import Modelo.Persona.Persona;
-
 import java.util.Scanner;
 
 
@@ -18,13 +14,13 @@ public class InterfazGrafica {
     {
         System.out.printf("\n--Bienvenido a ConoComodin--\n");
         System.out.printf("\n--que desea hacer?--\n");
-        System.out.printf("\n1)Iniciar secion.\n");
+        System.out.printf("\n1)Iniciar sesión.\n");
         System.out.printf("\n2)Registrarse.\n");
         System.out.printf("\n3)Salir.\n");
         int opcion = teclado.nextInt();
         switch (opcion){
             case 1:
-                iniciarSecion();
+                iniciarSesion();
                 PantallaPasajero();
                 break;
                 case 2:
@@ -57,7 +53,7 @@ public class InterfazGrafica {
 
 
 
-    private void iniciarSecion()
+    private void iniciarSesion()
     {
         System.out.printf("\t\t\tEmal: ");
         String email = teclado.next();
