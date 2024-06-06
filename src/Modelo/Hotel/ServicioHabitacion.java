@@ -1,5 +1,6 @@
 package Modelo.Hotel;
 
+import Enums.ETipoComida;
 import Modelo.Habitaciones.Frigobar.Frigobar;
 import Modelo.Habitaciones.Frigobar.Producto;
 import Modelo.Habitaciones.Habitacion;
@@ -10,16 +11,15 @@ public class ServicioHabitacion {
     private Habitacion habitacion;
     private Frigobar frigobar;
     private ArrayList<Producto> productosConsumidos; //(productos consumidos en el frigobar)
+    private ArrayList<ETipoComida> comidasConsumidas;
     private double precioFinal;
-
-
+    
     public ServicioHabitacion(Habitacion habitacion, Frigobar frigobar) {
         this.habitacion = habitacion;
         this.frigobar = frigobar;
         this.productosConsumidos = new ArrayList<>();
         precioFinal = 0;
     }
-
 
     /**
      * funcion para consumir productos del frigobar, ademas calcula el precio final de lo que va consumiendo
@@ -45,7 +45,5 @@ public class ServicioHabitacion {
             return 0;
         }
     }
-
-
 
 }
