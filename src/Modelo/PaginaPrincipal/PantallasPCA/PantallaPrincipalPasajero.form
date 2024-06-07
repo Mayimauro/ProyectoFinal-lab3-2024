@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Modelo.PaginaPrincipal.PantallasPCA.PantallaPrincipalPasajero">
-  <grid id="27dc6" binding="pasajeorPanel" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="pasajeorPanel" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="116"/>
+      <xy x="20" y="20" width="500" height="139"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -40,12 +40,12 @@
           <text value="Servicio al cuarto"/>
         </properties>
       </component>
-      <component id="829d3" class="javax.swing.JButton" binding="realizarCheckInButton" default-binding="true">
+      <component id="7f484" class="javax.swing.JButton" binding="cancelarReservaButton" default-binding="true">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Realizar checkIn"/>
+          <text value="Cancelar reserva"/>
         </properties>
       </component>
       <component id="b4cc2" class="javax.swing.JButton" binding="verGastosButton" default-binding="true">
@@ -54,6 +54,14 @@
         </constraints>
         <properties>
           <text value="Ver gastos"/>
+        </properties>
+      </component>
+      <component id="d95b6" class="javax.swing.JButton" binding="salirButton" default-binding="true">
+        <constraints>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Salir"/>
         </properties>
       </component>
     </children>

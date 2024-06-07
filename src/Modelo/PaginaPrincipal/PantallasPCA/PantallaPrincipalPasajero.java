@@ -18,6 +18,8 @@ public class PantallaPrincipalPasajero extends JFrame {
     private JButton servicioAlCuartoButton1;
     private JButton realizarCheckInButton;
     private JButton verGastosButton;
+    private JButton salirButton;
+    private JButton cancelarReservaButton;
 
     public PantallaPrincipalPasajero(Hotel hotel, Persona p) {
 
@@ -44,6 +46,12 @@ public class PantallaPrincipalPasajero extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JOptionPane.showMessageDialog(null,hotel.mostrarAlquileresPorPasajero(p));
+            }
+        });
+        salirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
             }
         });
     }

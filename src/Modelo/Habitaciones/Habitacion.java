@@ -13,13 +13,11 @@ import java.io.Serializable;
 public abstract class Habitacion implements Serializable, ICalcularCostoAdicional {
     private ETipoHabitacion habitacion;
     private double precioBase;
-    private boolean disponibilidad;
     private EEstadoHabitacion estado;
 
     public Habitacion(ETipoHabitacion habitacion) {
         this.habitacion = habitacion;
         this.precioBase = 0;
-        this.disponibilidad = true;
         this.estado = EEstadoHabitacion.DISPONIBLE;
     }
 
@@ -35,16 +33,12 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
         return precioBase;
     }
 
+    public void setEstado(EEstadoHabitacion estado) {
+        this.estado = estado;
+    }
+
     public void setPrecioBase(double precioBase) {
         this.precioBase = precioBase;
-    }
-
-    public boolean isDisponibilidad() {
-        return disponibilidad;
-    }
-
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
     }
 
     /**
@@ -68,10 +62,14 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
         return precioBase + calcularCostoAdiconal();
     }
 
+    public EEstadoHabitacion getEstado() {
+        return estado;
+    }
+
     @Override
     public String toString() {
         return habitacion +
                 ", precioBase=" + precioBase +
-                ", disponibilidad=" + disponibilidad+", ";
+                ", disponibilidad=" + estado+", ";
     }
 }

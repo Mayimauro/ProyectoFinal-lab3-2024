@@ -5,7 +5,8 @@ package Enums;
  */
 public enum EEstadoHabitacion {
     DISPONIBLE,
+    RESERVADA,
     OCUPADA,
     EN_LIMPIEZA,
-    EN_REPARACION;
+    EN_MANTENIMIENTO;
 }

@@ -1,13 +1,18 @@
 package Modelo.Hotel;
 
+import Enums.EEstadoHabitacion;
 import Modelo.Habitaciones.Habitacion;
 import Modelo.Persona.Persona;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-public class Reserva {
+public class Reserva implements Serializable {
+
+    private static final long serialVersionUID =1L;
+
     private LocalDate fechaReserva;
     private LocalDate fechaIngreso;
     private LocalDate fechaSalida;
@@ -33,6 +38,17 @@ public class Reserva {
     {
         long daysBetween = fechaSalida.toEpochDay() - fechaIngreso.toEpochDay();
         return (int) daysBetween;
+    }
+
+    public LocalDate getFechaIngreso() {
+        return fechaIngreso;
+    }
+
+    public void reservarHabitacion(){
+        habitacion.setEstado(EEstadoHabitacion.RESERVADA);
+    }
+    public void quitarReserva(){
+        habitacion.setEstado(EEstadoHabitacion.DISPONIBLE);
     }
 
     public Persona getPersona() {

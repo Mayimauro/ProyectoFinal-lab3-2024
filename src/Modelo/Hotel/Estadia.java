@@ -1,5 +1,6 @@
 package Modelo.Hotel;
 
+import Enums.EEstadoHabitacion;
 import Modelo.Habitaciones.Frigobar.Frigobar;
 import Modelo.Habitaciones.Habitacion;
 import Modelo.Persona.Persona;
@@ -27,6 +28,7 @@ public class Estadia {
         check = new Check(fechaIngreso,fechaSalida);
         this.pasajero = pasajero;
         this.habitacion = habitacion;
+        habitacion.setEstado(EEstadoHabitacion.OCUPADA);
         if(habitacion.getClass().getName().equals("Modelo.Habitaciones.HabitacionEstandar") || habitacion.getClass().getName().equals("Modelo.Habitaciones.HabitacionPremium"))
         {
             Frigobar f = new Frigobar();
@@ -36,4 +38,11 @@ public class Estadia {
         }
     }
 
+    public Check getCheck() {
+        return check;
+    }
+
+    public Habitacion getHabitacion() {
+        return habitacion;
+    }
 }

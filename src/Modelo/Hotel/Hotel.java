@@ -1,5 +1,6 @@
 package Modelo.Hotel;
 
+import Enums.EEstadoHabitacion;
 import Enums.ETipoHabitacion;
 import Exceptions.InicioSesionIncorrectoException;
 import Modelo.Habitaciones.Habitacion;
@@ -9,6 +10,7 @@ import Modelo.Habitaciones.HabitacionPremium;
 import Modelo.Persona.Persona;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,15 +21,17 @@ public class Hotel implements Serializable {
 
     private HashMap<Integer,Habitacion> listaHabitaciones; //(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
+    private ArrayList<Estadia> estadias;
     private ArrayList<Persona> usuarios;
 
     public Hotel() {
         this.listaHabitaciones = new HashMap<Integer,Habitacion>();
-        this.reservas = new ArrayList<>();
+        this.reservas = leerReservasDesdeArchivo("reservas");
         this.usuarios = new ArrayList<>();
         //agregarHabitacionesXArchivo();
         cargarDesdeArchivo();
         usuarios = cargarPersonasLista("Usuarios");
+
     }
 
     //metodos
@@ -96,7 +100,7 @@ public class Hotel implements Serializable {
         Habitaciones.put(7,p2);
         Habitaciones.put(8,p3);
 
-        try (FileOutputStream fos = new FileOutputStream("ListaHabitaciones.ser");
+        try (FileOutputStream fos = new FileOutputStream("ListaHabitaciones");
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
             oos.writeObject(Habitaciones);
@@ -108,7 +112,7 @@ public class Hotel implements Serializable {
     }
     private void cargarDesdeArchivo()
     {
-        String filePath = "ListaHabitaciones.ser";
+        String filePath = "ListaHabitaciones";
         File file = new File(filePath);
         if (!file.exists()) {
             System.out.println("El archivo " + filePath + " no existe.");
@@ -164,7 +168,7 @@ public class Hotel implements Serializable {
     {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
-            if(entry.getValue().isDisponibilidad())
+            if(entry.getValue().getEstado().equals(EEstadoHabitacion.DISPONIBLE))
             {
                 sb.append("Habitacion= ").append(entry.getKey())
                         .append(", ").append(entry.getValue().toString())
@@ -196,13 +200,70 @@ public class Hotel implements Serializable {
         {
             if(r.getPersona().equals(pasajero))
             {
-                //hacer strign builder
+                //hacer strinG builder
             }
         }
         return sb.toString();
     }
 
     public void agregarReserva(Reserva r1) {
+        r1.reservarHabitacion();
         reservas.add(r1);
+        guardarReservasArchivo();
     }
+
+    public void cancelarReserva(Persona p, LocalDate ld)
+    {
+        for(Reserva r : reservas)
+        {
+            if(r.getPersona().equals(p) && ld.isEqual(r.getFechaIngreso()))
+            {
+                r.quitarReserva();
+                reservas.remove(r);
+                guardarReservasArchivo();
+                System.out.println("\n--reserva eliminada exitosamente tonto--\n");
+            }
+        }
+    }
+    public void guardarReservasArchivo()
+    {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reservas"))) {
+            for (Reserva reserva : reservas) {
+                oos.writeObject(reserva);
+            }
+            System.out.println("Archivo serializado exitosamente.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static ArrayList<Reserva> leerReservasDesdeArchivo(String nombreArchivo) {
+        ArrayList<Reserva> reservas = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nombreArchivo))) {
+            while (true) {
+                try {
+                    Reserva r1 = (Reserva) ois.readObject();
+                    reservas.add(r1);
+                } catch (EOFException eof) {
+                    break; // Fin del archivo alcanzado
+                     }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return reservas;
+    }
+
+    public void finEstadia(){
+        for(Estadia e : estadias)
+        {
+            if(e.getCheck().getCheckOut().equals(LocalDate.now()))
+            {
+                e.getHabitacion().setEstado(EEstadoHabitacion.EN_LIMPIEZA);
+                estadias.remove(e);
+            }
+        }
+    }
+
+
 }

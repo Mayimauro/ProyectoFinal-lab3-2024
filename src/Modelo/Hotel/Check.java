@@ -16,6 +16,10 @@ public class Check {
         this.checkOut = checkOut;
     }
 
+    public LocalDate getCheckOut() {
+        return checkOut;
+    }
+
     /**
      * Los check se inicializan con las fechas de la reserva, por lo tanto en caso de que los pasajeros decidan prolongar
      * su estadía, se puede modificar tal fecha.
