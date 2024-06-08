@@ -19,14 +19,15 @@ import java.util.Map;
 public class Hotel implements Serializable {
     private static final long serialVersionUID =1L;
 
-    private HashMap<Integer,Habitacion> listaHabitaciones; //(el integer es el numero de la habitacion)
+    private HashMap<Integer,Habitacion> listaHabitaciones;//(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
     private ArrayList<Estadia> estadias;
     private ArrayList<Persona> usuarios;
 
     public Hotel() {
         this.listaHabitaciones = new HashMap<Integer,Habitacion>();
-        this.reservas = leerReservasDesdeArchivo("reservas");
+        reservas = new ArrayList<>();
+        //this.reservas = leerReservasDesdeArchivo("reservas");
         this.usuarios = new ArrayList<>();
         //agregarHabitacionesXArchivo();
         cargarDesdeArchivo();
@@ -71,7 +72,15 @@ public class Hotel implements Serializable {
 
     public Habitacion getHabitacion(int key)
     {
-        return listaHabitaciones.get(key);
+        ArrayList<Habitacion> habitaciones = new ArrayList<>(listaHabitaciones.values());//arreglar
+        for(Habitacion h : habitaciones)
+        {
+            if(h.getEstado().equals(EEstadoHabitacion.RESERVADA))
+            {
+                habitaciones.remove(h);
+            }
+        }
+        return habitaciones.get(key);
     }
 
     //archivos
@@ -160,6 +169,19 @@ public class Hotel implements Serializable {
 
     }
 
+    private void guardarHabitacionesArchivo()
+    {
+        try (FileOutputStream fos = new FileOutputStream("ListaHabitaciones");
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
+
+            oos.writeObject(listaHabitaciones);
+            System.out.println("HashMap ha sido serializado y guardado en hashmap.ser");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Método para mostrar la lista de habitaciones disponibles.
      * @return retorna un string con los datos de las habitaciones disponibles.
@@ -173,6 +195,26 @@ public class Hotel implements Serializable {
                 sb.append("Habitacion= ").append(entry.getKey())
                         .append(", ").append(entry.getValue().toString())
                         .append("\n");
+            }
+        }
+        return sb.toString();
+    }
+    /**
+     * Método para mostrar la lista de habitaciones disponibles.
+     * @return retorna un string con los datos de las habitaciones disponibles.
+     */
+    public String mostrarHabitacionesDisponiblesXFecha()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
+            if(entry.getValue().getEstado().equals(EEstadoHabitacion.DISPONIBLE))
+            {
+                sb.append("Habitacion= ").append(entry.getKey())
+                        .append(", ").append(entry.getValue().toString())
+                        .append("\n");
+            }else {
+                //completar
+                //usar isbefore and isafter
             }
         }
         return sb.toString();
@@ -200,31 +242,56 @@ public class Hotel implements Serializable {
         {
             if(r.getPersona().equals(pasajero))
             {
-                //hacer strinG builder
+                sb.append("Reservas: ").append(r).append("\n");
             }
+
         }
         return sb.toString();
     }
+
+
+    public boolean verificarQueTieneReserva(Persona p)
+    {
+        boolean aux = false;
+        for(Reserva r : reservas)
+        {
+            if(r.getPersona().equals(p))
+            {
+                aux = true;
+            }
+        }
+        return aux;
+    }
+
 
     public void agregarReserva(Reserva r1) {
         r1.reservarHabitacion();
         reservas.add(r1);
         guardarReservasArchivo();
+        guardarHabitacionesArchivo();
+    }
+    public void cancelarReserva(Reserva r)
+    {
+        reservas.remove(r);
+        r.quitarReserva();
+        guardarReservasArchivo();
+        guardarHabitacionesArchivo();
     }
 
-    public void cancelarReserva(Persona p, LocalDate ld)
+    public ArrayList<Reserva> listaReservaPasajero(Persona p)
     {
+        ArrayList<Reserva> reservasPasajero = new ArrayList<>();
         for(Reserva r : reservas)
         {
-            if(r.getPersona().equals(p) && ld.isEqual(r.getFechaIngreso()))
+            if(r.getPersona().equals(p))
             {
-                r.quitarReserva();
-                reservas.remove(r);
-                guardarReservasArchivo();
-                System.out.println("\n--reserva eliminada exitosamente tonto--\n");
+                reservasPasajero.add(r);
             }
         }
+        return reservasPasajero;
     }
+
+
     public void guardarReservasArchivo()
     {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("reservas"))) {

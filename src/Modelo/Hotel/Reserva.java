@@ -43,6 +43,10 @@ public class Reserva implements Serializable {
     public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
+    public LocalDate getFechaSalida()
+    {
+        return fechaSalida;
+    }
 
     public void reservarHabitacion(){
         habitacion.setEstado(EEstadoHabitacion.RESERVADA);

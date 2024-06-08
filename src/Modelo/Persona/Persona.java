@@ -2,6 +2,7 @@ package Modelo.Persona;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Clase la cual detalla todos los datos pertinentes a la persona que realiza la reserva.
@@ -97,5 +98,19 @@ public class Persona implements Serializable {
                 ", DNI='" + DNI+
                 ", mail = " +mail+
                 ", contra = " +contrasena;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Persona persona = (Persona) o;
+        return Objects.equals(DNI, persona.DNI);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(DNI);
     }
 }
