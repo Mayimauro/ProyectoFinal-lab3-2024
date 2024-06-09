@@ -53,6 +53,7 @@ public class Reserva implements Serializable {
     }
     public void quitarReserva(){
         habitacion.setEstado(EEstadoHabitacion.DISPONIBLE);
+        System.out.printf("\n--el nuevo estado de la habitacion es "+ habitacion.getEstado()+"---\n");
     }
 
     public Persona getPersona() {

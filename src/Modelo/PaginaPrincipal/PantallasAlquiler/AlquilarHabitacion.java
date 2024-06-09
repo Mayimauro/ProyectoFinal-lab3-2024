@@ -56,10 +56,8 @@ public class AlquilarHabitacion extends JFrame{
 
                    String aux1 = (String) comboBox1.getSelectedItem();
 
+                    r1.asignarHabitacion(hotel.getHabitacion(comboBox1.getSelectedIndex())); //esta mal arreglar
 
-
-
-                    r1.asignarHabitacion(hotel.getHabitacion(comboBox1.getSelectedIndex()+1)); //esta mal arreglar
                     hotel.agregarReserva(r1);
                     JOptionPane.showMessageDialog(null,"Alquiler completo");
                     JOptionPane.showMessageDialog(null,"detalles :"+ r1);

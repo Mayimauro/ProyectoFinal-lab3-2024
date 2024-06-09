@@ -27,7 +27,7 @@ public class Hotel implements Serializable {
     public Hotel() {
         this.listaHabitaciones = new HashMap<Integer,Habitacion>();
         reservas = new ArrayList<>();
-        //this.reservas = leerReservasDesdeArchivo("reservas");
+        this.reservas = leerReservasDesdeArchivo("reservas");
         this.usuarios = new ArrayList<>();
         //agregarHabitacionesXArchivo();
         cargarDesdeArchivo();
@@ -73,13 +73,11 @@ public class Hotel implements Serializable {
     public Habitacion getHabitacion(int key)
     {
         ArrayList<Habitacion> habitaciones = new ArrayList<>(listaHabitaciones.values());//arreglar
-        for(Habitacion h : habitaciones)
-        {
-            if(h.getEstado().equals(EEstadoHabitacion.RESERVADA))
-            {
-                habitaciones.remove(h);
-            }
-        }
+
+        habitaciones.removeIf(h -> h.getEstado().equals(EEstadoHabitacion.RESERVADA));
+
+        System.out.printf("\n---"+habitaciones.toString()+"---\n");
+
         return habitaciones.get(key);
     }
 
@@ -272,8 +270,8 @@ public class Hotel implements Serializable {
     }
     public void cancelarReserva(Reserva r)
     {
-        reservas.remove(r);
         r.quitarReserva();
+        reservas.remove(r);
         guardarReservasArchivo();
         guardarHabitacionesArchivo();
     }
