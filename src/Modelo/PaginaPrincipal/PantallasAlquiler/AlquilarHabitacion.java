@@ -8,6 +8,9 @@ import Modelo.Persona.Persona;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AlquilarHabitacion extends JFrame{
     private JPanel alquilarHabi;
@@ -19,13 +22,11 @@ public class AlquilarHabitacion extends JFrame{
 
     public AlquilarHabitacion(Hotel hotel, Persona p, Reserva r1) {
 
-        String habitacion = hotel.mostrarHabitacionesDisponibles();
 
-        String[] habitacionSplit = habitacion.split("\n");
-
-        for(String h : habitacionSplit) {
-            comboBox1.addItem(h);
-        }
+        HashMap<Integer,Habitacion> a1 = hotel.getListaHabitaciones();
+        a1.forEach((key, value) -> {
+            comboBox1.addItem("numero: " + key + ", habitacion: " + value);
+        });
 
         setTitle("Alquilar Habitacion");
         setSize(900,300);
@@ -54,9 +55,21 @@ public class AlquilarHabitacion extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(comboBox1.getSelectedIndex() != -1 ){
 
-                   String aux1 = (String) comboBox1.getSelectedItem();
+                    //TRABAJAR CON JSON
 
-                    r1.asignarHabitacion(hotel.getHabitacion(comboBox1.getSelectedIndex())); //esta mal arreglar
+
+                    String habSelec = (String) comboBox1.getSelectedItem();
+
+                    System.out.println("\n---"+habSelec+"--\n");
+                    Pattern pattern = Pattern.compile("\\d+");
+                    // Creamos el matcher a partir de la cadena
+                    Matcher matcher = pattern.matcher(habSelec);
+                    // Si encontramos un número, intentamos devolverlo como entero
+                        String numeroStr = matcher.group();
+                        int aux= Integer.parseInt(numeroStr);
+
+
+                    r1.asignarHabitacion(hotel.getHabitacion(aux)); //esta mal arreglar
 
                     hotel.agregarReserva(r1);
                     JOptionPane.showMessageDialog(null,"Alquiler completo");
