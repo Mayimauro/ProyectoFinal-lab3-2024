@@ -5,17 +5,20 @@ import Enums.ETipoHabitacion;
 import Interfaces.ICalcularCostoAdicional;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * La clase abstracta Habitacion tiene el fin de reunir los atributos que van a tener todos los distintos tipos de
  * habitación.
  */
 public abstract class Habitacion implements Serializable, ICalcularCostoAdicional {
+    private int id;
     private ETipoHabitacion habitacion;
     private double precioBase;
     private EEstadoHabitacion estado;
 
-    public Habitacion(ETipoHabitacion habitacion) {
+    public Habitacion(int id,ETipoHabitacion habitacion) {
+        this.id = id;
         this.habitacion = habitacion;
         this.precioBase = 0;
         this.estado = EEstadoHabitacion.DISPONIBLE;
@@ -64,6 +67,19 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
 
     public EEstadoHabitacion getEstado() {
         return estado;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Habitacion that = (Habitacion) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 
     @Override

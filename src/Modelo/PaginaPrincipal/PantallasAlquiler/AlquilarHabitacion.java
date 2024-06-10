@@ -23,10 +23,16 @@ public class AlquilarHabitacion extends JFrame{
     public AlquilarHabitacion(Hotel hotel, Persona p, Reserva r1) {
 
 
-        HashMap<Integer,Habitacion> a1 = hotel.getListaHabitaciones();
-        a1.forEach((key, value) -> {
-            comboBox1.addItem("numero: " + key + ", habitacion: " + value);
-        });
+
+        String habitacion = hotel.mostrarHabitacionesDisponibles();
+        String[] habitacionSplit = habitacion.split("\n");
+        for(String h : habitacionSplit) {
+            comboBox1.addItem(h);
+        }
+//        HashMap<Integer,Habitacion> a1 = hotel.getListaHabitaciones();
+//        a1.forEach((key, value) -> {
+//            comboBox1.addItem("numero: " + key + ", habitacion: " + value);
+//        });
 
         setTitle("Alquilar Habitacion");
         setSize(900,300);
@@ -62,14 +68,17 @@ public class AlquilarHabitacion extends JFrame{
 
                     System.out.println("\n---"+habSelec+"--\n");
                     Pattern pattern = Pattern.compile("\\d+");
-                    // Creamos el matcher a partir de la cadena
+
                     Matcher matcher = pattern.matcher(habSelec);
-                    // Si encontramos un número, intentamos devolverlo como entero
-                        String numeroStr = matcher.group();
-                        int aux= Integer.parseInt(numeroStr);
 
-
-                    r1.asignarHabitacion(hotel.getHabitacion(aux)); //esta mal arreglar
+                    // Si se encuentra un número, imprimir el primero
+                    if (matcher.find()) {
+                        System.out.println("\n---El primer número encontrado es: " + matcher.group()+"--\n");
+                        int aux = Integer.parseInt(matcher.group());
+                        r1.asignarHabitacion(hotel.getHabitacion(aux)); //esta mal arreglar
+                    } else {
+                        System.out.println("No se encontraron números en el texto.");
+                    }
 
                     hotel.agregarReserva(r1);
                     JOptionPane.showMessageDialog(null,"Alquiler completo");

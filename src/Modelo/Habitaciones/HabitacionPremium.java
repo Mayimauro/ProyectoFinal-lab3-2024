@@ -10,8 +10,8 @@ public class HabitacionPremium extends HabitacionEstandar{
     /**
      * Constructor diseñado para este tipo de habitación, donde el usuario elije las comodidades adicionales.
      */
-    public HabitacionPremium(ETipoHabitacion habitacion, boolean jacuzzi, boolean servicioDesayuno) {
-        super(habitacion);
+    public HabitacionPremium(int id,ETipoHabitacion habitacion, boolean jacuzzi, boolean servicioDesayuno) {
+        super(id,habitacion);
         super.setPrecioBase(PRECIO_BASE_PREIMIUM);
         this.jacuzzi = jacuzzi;
         this.servicioDesayuno = servicioDesayuno;

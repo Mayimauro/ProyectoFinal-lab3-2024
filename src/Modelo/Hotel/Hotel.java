@@ -72,13 +72,7 @@ public class Hotel implements Serializable {
 
     public Habitacion getHabitacion(int key)
     {
-        ArrayList<Habitacion> habitaciones = new ArrayList<>(listaHabitaciones.values());//arreglar
-
-        habitaciones.removeIf(h -> h.getEstado().equals(EEstadoHabitacion.RESERVADA));
-
-        System.out.printf("\n---"+habitaciones.toString()+"---\n");
-
-        return habitaciones.get(key);
+       return listaHabitaciones.get(key);
     }
 
     //archivos
@@ -90,14 +84,14 @@ public class Hotel implements Serializable {
     private void agregarHabitacionesXArchivo()
     {
         HashMap<Integer,Habitacion> Habitaciones = new HashMap<>();
-        HabitacionPremium p1 = new HabitacionPremium(ETipoHabitacion.DOBLE_TIPO_1,true,true);
-        HabitacionPremium p2 = new HabitacionPremium(ETipoHabitacion.DOBLE_TIPO_2,true,true);
-        HabitacionPremium p3 = new HabitacionPremium(ETipoHabitacion.TRIPLE,true,true);
-        HabitacionEstandar e1 = new HabitacionEstandar(ETipoHabitacion.DOBLE_TIPO_1,true,true,true);
-        HabitacionEstandar e2 = new HabitacionEstandar(ETipoHabitacion.TRIPLE,true,true,true);
-        HabitacionEconomica eco1 = new HabitacionEconomica(ETipoHabitacion.DOBLE_TIPO_1,true);
-        HabitacionEconomica eco2 = new HabitacionEconomica(ETipoHabitacion.DOBLE_TIPO_1,true);
-        HabitacionEconomica eco3 = new HabitacionEconomica(ETipoHabitacion.DOBLE_TIPO_2,false);
+        HabitacionPremium p1 = new HabitacionPremium(1,ETipoHabitacion.DOBLE_TIPO_1,true,true);
+        HabitacionPremium p2 = new HabitacionPremium(2,ETipoHabitacion.DOBLE_TIPO_2,true,true);
+        HabitacionPremium p3 = new HabitacionPremium(3,ETipoHabitacion.TRIPLE,true,true);
+        HabitacionEstandar e1 = new HabitacionEstandar(4,ETipoHabitacion.DOBLE_TIPO_1,true,true,true);
+        HabitacionEstandar e2 = new HabitacionEstandar(5,ETipoHabitacion.TRIPLE,true,true,true);
+        HabitacionEconomica eco1 = new HabitacionEconomica(6,ETipoHabitacion.DOBLE_TIPO_1,true);
+        HabitacionEconomica eco2 = new HabitacionEconomica(7,ETipoHabitacion.DOBLE_TIPO_1,true);
+        HabitacionEconomica eco3 = new HabitacionEconomica(8,ETipoHabitacion.DOBLE_TIPO_2,false);
         Habitaciones.put(1,eco1);
         Habitaciones.put(2,eco2);
         Habitaciones.put(3,eco3);
@@ -188,8 +182,10 @@ public class Hotel implements Serializable {
     {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
+            System.out.printf("\n---habitacion: "+entry.getValue().toString()+"---\n");
             if(entry.getValue().getEstado().equals(EEstadoHabitacion.DISPONIBLE))
             {
+                System.out.printf("\n---habitacion: "+entry.getValue().toString()+"---\n");
                 sb.append("Habitacion= ").append(entry.getKey())
                         .append(", ").append(entry.getValue().toString())
                         .append("\n");
@@ -270,7 +266,17 @@ public class Hotel implements Serializable {
     }
     public void cancelarReserva(Reserva r)
     {
-        r.quitarReserva();
+        for(Map.Entry<Integer,Habitacion> entry : listaHabitaciones.entrySet())
+        {
+            if(entry.getValue().equals(r.getHabitacion()))
+            {
+                System.out.printf("\n---habitacion: "+entry.getValue().toString()+"---\n");
+                entry.getValue().setEstado(EEstadoHabitacion.DISPONIBLE);
+                System.out.printf("\n---habitacion: "+entry.getValue().toString()+"---\n");
+            }else {
+                System.out.printf("\n---no encontre la habitacion---\n");
+            }
+        }
         reservas.remove(r);
         guardarReservasArchivo();
         guardarHabitacionesArchivo();

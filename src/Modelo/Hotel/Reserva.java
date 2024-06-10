@@ -56,6 +56,10 @@ public class Reserva implements Serializable {
         System.out.printf("\n--el nuevo estado de la habitacion es "+ habitacion.getEstado()+"---\n");
     }
 
+    public Habitacion getHabitacion() {
+        return habitacion;
+    }
+
     public Persona getPersona() {
         return persona;
     }

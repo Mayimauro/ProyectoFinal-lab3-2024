@@ -9,8 +9,8 @@ public class HabitacionEconomica extends Habitacion {
     /**
      * Constructor diseñado para este tipo de habitación, donde el usuario elije las comodidades adicionales.
      */
-    public HabitacionEconomica(ETipoHabitacion habitacion, boolean aire) {
-        super(habitacion);
+    public HabitacionEconomica(int id,ETipoHabitacion habitacion, boolean aire) {
+        super(id,habitacion);
         super.setPrecioBase(PRECIO_BASE_ECONOMICA);
         this.aire = aire;
     }
@@ -19,8 +19,8 @@ public class HabitacionEconomica extends Habitacion {
      * Constructor diseñado para el tipo de habitación que hereda de esta, la cual va a tener todas las comodidades
      * incluidas.
      */
-    public HabitacionEconomica(ETipoHabitacion habitacion) {
-        super(habitacion);
+    public HabitacionEconomica(int id,ETipoHabitacion habitacion) {
+        super(id,habitacion);
         super.setPrecioBase(PRECIO_BASE_ECONOMICA);
         this.aire = true;
     }
