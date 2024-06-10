@@ -26,13 +26,18 @@ public class AlquilarHabitacion extends JFrame{
 
         String habitacion = hotel.mostrarHabitacionesDisponibles();
         String[] habitacionSplit = habitacion.split("\n");
+
+        String habitacionesxFecha = hotel.mostrarHabitacionesDisponiblesXFecha(r1.getFechaIngreso(),r1.getFechaSalida());
+        String[] habitacionSplit2 = habitacionesxFecha.split("\n");
+
+
         for(String h : habitacionSplit) {
             comboBox1.addItem(h);
         }
-//        HashMap<Integer,Habitacion> a1 = hotel.getListaHabitaciones();
-//        a1.forEach((key, value) -> {
-//            comboBox1.addItem("numero: " + key + ", habitacion: " + value);
-//        });
+
+        for(String h : habitacionSplit2) {
+            comboBox1.addItem(h);
+        }
 
         setTitle("Alquilar Habitacion");
         setSize(900,300);
@@ -61,9 +66,6 @@ public class AlquilarHabitacion extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if(comboBox1.getSelectedIndex() != -1 ){
 
-                    //TRABAJAR CON JSON
-
-
                     String habSelec = (String) comboBox1.getSelectedItem();
 
                     System.out.println("\n---"+habSelec+"--\n");
@@ -71,7 +73,6 @@ public class AlquilarHabitacion extends JFrame{
 
                     Matcher matcher = pattern.matcher(habSelec);
 
-                    // Si se encuentra un número, imprimir el primero
                     if (matcher.find()) {
                         System.out.println("\n---El primer número encontrado es: " + matcher.group()+"--\n");
                         int aux = Integer.parseInt(matcher.group());

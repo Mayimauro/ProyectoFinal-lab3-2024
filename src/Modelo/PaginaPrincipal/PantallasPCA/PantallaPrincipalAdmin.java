@@ -1,6 +1,8 @@
 package Modelo.PaginaPrincipal.PantallasPCA;
 
 import Modelo.Hotel.Hotel;
+import Modelo.PaginaPrincipal.PantallaAgregarHabitacion;
+import Modelo.PaginaPrincipal.PantallaEliminarHabitacion;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,7 @@ public class PantallaPrincipalAdmin extends JFrame {
     private JButton agregarHabitacionButton;
     private JButton agregarConserjeButton;
     private JButton quitarConserjeButton;
-    private JButton consultarButton;
+    private JButton eliminarHabitacionButton;
     private JButton consultarButton3;
     private JButton consultarButton2;
     private JButton consultarButton1;
@@ -48,6 +50,31 @@ public class PantallaPrincipalAdmin extends JFrame {
             }
         });
 
+        listaDeHuespedesButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String huespedes = a.mostrarHuespedes();
+                if(!a.mostrarHuespedes().isEmpty())
+                {
+                    JOptionPane.showMessageDialog(null,a.mostrarHuespedes());
+                }else {
+                    JOptionPane.showMessageDialog(null,"No hay huespedes :_(");
+                }
+
+            }
+        });
+        agregarHabitacionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PantallaAgregarHabitacion agh1 = new PantallaAgregarHabitacion(a);
+            }
+        });
+        eliminarHabitacionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PantallaEliminarHabitacion pe1 = new PantallaEliminarHabitacion(a);
+            }
+        });
     }
 
 }

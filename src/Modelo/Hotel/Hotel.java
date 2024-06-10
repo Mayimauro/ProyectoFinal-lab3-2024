@@ -17,16 +17,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Hotel implements Serializable {
-    private static final long serialVersionUID =1L;
+    private static final long serialVersionUID = 1L;
 
-    private HashMap<Integer,Habitacion> listaHabitaciones;//(el integer es el numero de la habitacion)
+    private HashMap<Integer, Habitacion> listaHabitaciones;//(el integer es el numero de la habitacion)
     private ArrayList<Reserva> reservas;
     private ArrayList<Estadia> estadias;
     private ArrayList<Persona> usuarios;
 
     public Hotel() {
-        this.listaHabitaciones = new HashMap<Integer,Habitacion>();
+        this.listaHabitaciones = new HashMap<Integer, Habitacion>();
         reservas = new ArrayList<>();
+        this.estadias = new ArrayList<>();
         this.reservas = leerReservasDesdeArchivo("reservas");
         this.usuarios = new ArrayList<>();
         //agregarHabitacionesXArchivo();
@@ -41,13 +42,12 @@ public class Hotel implements Serializable {
 
         for (Persona persona : usuarios) {
 
-            if(persona.getMail().equals(mail) && persona.getContrasena().equals(password)) {
-                if(mail.contains("@admin.com"))
-                {
+            if (persona.getMail().equals(mail) && persona.getContrasena().equals(password)) {
+                if (mail.contains("@admin.com")) {
                     return 1;
                 } else if (mail.contains("@conserje.com")) {
                     return 2;
-                }else {
+                } else {
                     return 0;
                 }
             }
@@ -55,51 +55,49 @@ public class Hotel implements Serializable {
         throw new InicioSesionIncorrectoException();
     }
 
-    public Persona buscarPersona(String mail, String password)
-    {
+    public Persona buscarPersona(String mail, String password) {
         for (Persona persona : usuarios) {
 
-            if(persona.getMail().equals(mail) && persona.getContrasena().equals(password)) {
+            if (persona.getMail().equals(mail) && persona.getContrasena().equals(password)) {
                 return persona;
             }
         }
         return null;
     }
 
-    public HashMap<Integer,Habitacion> getListaHabitaciones() {
+    public HashMap<Integer, Habitacion> getListaHabitaciones() {
         return listaHabitaciones;
     }
 
-    public Habitacion getHabitacion(int key)
-    {
-       return listaHabitaciones.get(key);
+    public Habitacion getHabitacion(int key) {
+        return listaHabitaciones.get(key);
     }
 
     //archivos
+
     /**
      * con esta funcion cargamos habitraciones dentro de nuestro hotel desde un archivo
      * va a ser borrada una vez tengamos todos el archivo en nuestras pc
      * para usar descomentar la funcion en el constructor ir al main y darle al play
      */
-    private void agregarHabitacionesXArchivo()
-    {
-        HashMap<Integer,Habitacion> Habitaciones = new HashMap<>();
-        HabitacionPremium p1 = new HabitacionPremium(1,ETipoHabitacion.DOBLE_TIPO_1,true,true);
-        HabitacionPremium p2 = new HabitacionPremium(2,ETipoHabitacion.DOBLE_TIPO_2,true,true);
-        HabitacionPremium p3 = new HabitacionPremium(3,ETipoHabitacion.TRIPLE,true,true);
-        HabitacionEstandar e1 = new HabitacionEstandar(4,ETipoHabitacion.DOBLE_TIPO_1,true,true,true);
-        HabitacionEstandar e2 = new HabitacionEstandar(5,ETipoHabitacion.TRIPLE,true,true,true);
-        HabitacionEconomica eco1 = new HabitacionEconomica(6,ETipoHabitacion.DOBLE_TIPO_1,true);
-        HabitacionEconomica eco2 = new HabitacionEconomica(7,ETipoHabitacion.DOBLE_TIPO_1,true);
-        HabitacionEconomica eco3 = new HabitacionEconomica(8,ETipoHabitacion.DOBLE_TIPO_2,false);
-        Habitaciones.put(1,eco1);
-        Habitaciones.put(2,eco2);
-        Habitaciones.put(3,eco3);
-        Habitaciones.put(4,e1);
-        Habitaciones.put(5,e2);
-        Habitaciones.put(6,p1);
-        Habitaciones.put(7,p2);
-        Habitaciones.put(8,p3);
+    private void agregarHabitacionesXArchivo() {
+        HashMap<Integer, Habitacion> Habitaciones = new HashMap<>();
+        HabitacionPremium p1 = new HabitacionPremium(1, ETipoHabitacion.DOBLE_TIPO_1, true, true);
+        HabitacionPremium p2 = new HabitacionPremium(2, ETipoHabitacion.DOBLE_TIPO_2, true, true);
+        HabitacionPremium p3 = new HabitacionPremium(3, ETipoHabitacion.TRIPLE, true, true);
+        HabitacionEstandar e1 = new HabitacionEstandar(4, ETipoHabitacion.DOBLE_TIPO_1, true, true, true);
+        HabitacionEstandar e2 = new HabitacionEstandar(5, ETipoHabitacion.TRIPLE, true, true, true);
+        HabitacionEconomica eco1 = new HabitacionEconomica(6, ETipoHabitacion.DOBLE_TIPO_1, true);
+        HabitacionEconomica eco2 = new HabitacionEconomica(7, ETipoHabitacion.DOBLE_TIPO_1, true);
+        HabitacionEconomica eco3 = new HabitacionEconomica(8, ETipoHabitacion.DOBLE_TIPO_2, false);
+        Habitaciones.put(1, eco1);
+        Habitaciones.put(2, eco2);
+        Habitaciones.put(3, eco3);
+        Habitaciones.put(4, e1);
+        Habitaciones.put(5, e2);
+        Habitaciones.put(6, p1);
+        Habitaciones.put(7, p2);
+        Habitaciones.put(8, p3);
 
         try (FileOutputStream fos = new FileOutputStream("ListaHabitaciones");
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
@@ -111,8 +109,8 @@ public class Hotel implements Serializable {
             e.printStackTrace();
         }
     }
-    private void cargarDesdeArchivo()
-    {
+
+    private void cargarDesdeArchivo() {
         String filePath = "ListaHabitaciones";
         File file = new File(filePath);
         if (!file.exists()) {
@@ -124,7 +122,7 @@ public class Hotel implements Serializable {
              ObjectInputStream ois = new ObjectInputStream(fis)) {
 
             // Deserializar el objeto y asignarlo al HashMap
-            HashMap<Integer,Habitacion> map = (HashMap<Integer,Habitacion>) ois.readObject();
+            HashMap<Integer, Habitacion> map = (HashMap<Integer, Habitacion>) ois.readObject();
             listaHabitaciones = map;
 
         } catch (FileNotFoundException e) {
@@ -139,15 +137,14 @@ public class Hotel implements Serializable {
         }
     }
 
-    public ArrayList<Persona> cargarPersonasLista(String nombreArchivo)
-    {
+    public ArrayList<Persona> cargarPersonasLista(String nombreArchivo) {
         ArrayList<Persona> personas = new ArrayList<>();
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(nombreArchivo))) {
             while (true) {
                 try {
                     Persona persona = (Persona) ois.readObject();
-                    System.out.printf("\n----cargada en la lista en clase hotel "+persona.toString()+"---\n");
+                    System.out.printf("\n----cargada en la lista en clase hotel " + persona.toString() + "---\n");
                     personas.add(persona);
                 } catch (EOFException eof) {
                     break; // Fin del archivo alcanzado
@@ -161,8 +158,7 @@ public class Hotel implements Serializable {
 
     }
 
-    private void guardarHabitacionesArchivo()
-    {
+    private void guardarHabitacionesArchivo() {
         try (FileOutputStream fos = new FileOutputStream("ListaHabitaciones");
              ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
@@ -176,16 +172,15 @@ public class Hotel implements Serializable {
 
     /**
      * Método para mostrar la lista de habitaciones disponibles.
+     *
      * @return retorna un string con los datos de las habitaciones disponibles.
      */
-    public String mostrarHabitacionesDisponibles()
-    {
+    public String mostrarHabitacionesDisponibles() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
-            System.out.printf("\n---habitacion: "+entry.getValue().toString()+"---\n");
-            if(entry.getValue().getEstado().equals(EEstadoHabitacion.DISPONIBLE))
-            {
-                System.out.printf("\n---habitacion: "+entry.getValue().toString()+"---\n");
+            System.out.printf("\n---habitacion: " + entry.getValue().toString() + "---\n");
+            if (entry.getValue().getEstado().equals(EEstadoHabitacion.DISPONIBLE)) {
+                System.out.printf("\n---habitacion: " + entry.getValue().toString() + "---\n");
                 sb.append("Habitacion= ").append(entry.getKey())
                         .append(", ").append(entry.getValue().toString())
                         .append("\n");
@@ -193,22 +188,39 @@ public class Hotel implements Serializable {
         }
         return sb.toString();
     }
+
     /**
      * Método para mostrar la lista de habitaciones disponibles.
+     *
      * @return retorna un string con los datos de las habitaciones disponibles.
+     * <p>
+     * FUNCIONA A MEDIAS RESIVAR COMO HACER PARA NO AGREGAR HABITACIONES REPETIDAS
      */
-    public String mostrarHabitacionesDisponiblesXFecha()
-    {
+    public String mostrarHabitacionesDisponiblesXFecha(LocalDate fechaEntradaFuturoHuesped, LocalDate fechaSaladiaFuturoHuesped) {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
-            if(entry.getValue().getEstado().equals(EEstadoHabitacion.DISPONIBLE))
+        for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {    //RECORRO EL HASHMAP
+            if (entry.getValue().getEstado().equals(EEstadoHabitacion.RESERVADA)) //VEO CUALES HABITACIONES ESTAN RESERVADAS
             {
-                sb.append("Habitacion= ").append(entry.getKey())
-                        .append(", ").append(entry.getValue().toString())
-                        .append("\n");
-            }else {
-                //completar
-                //usar isbefore and isafter
+                for (Reserva r : reservas) {  ///RECORRO LAS RESERVAS
+                    {
+                        if (r.getHabitacion().equals(entry.getValue())) //ME FIJO QUE LA HABITACION COINCIDA CON LA RESERVA
+                        {
+                            if (fechaEntradaFuturoHuesped.isAfter(r.getFechaSalida()))  //SI LA FECHA DE ENTRADA DEL HUESPED ES DESPUES DE LA DE SALIDA DE LA RESERVA SE AGREGA
+                            {
+                                sb.append("Habitacion= ").append(entry.getKey())
+                                        .append(", ").append(entry.getValue().toString())
+                                        .append("\n");
+                            } else if (fechaEntradaFuturoHuesped.isBefore(r.getFechaIngreso()) && fechaSaladiaFuturoHuesped.isBefore(r.getFechaIngreso())) { //SI LAS FECHAS SON ANTES DE LA ENTRADA DEL HUESPED SE ARGEGA
+
+                                sb.append("Habitacion= ").append(entry.getKey())
+                                        .append(", ").append(entry.getValue().toString())
+                                        .append("\n");
+                            }
+                            //---BUSCAR FORMA DE QUE NO SE REPITAN LAS HABITACIONES------
+                        }
+                    }
+
+                }
             }
         }
         return sb.toString();
@@ -216,10 +228,10 @@ public class Hotel implements Serializable {
 
     /**
      * Método para mostrar la lista de habitaciones
+     *
      * @return retorna un string con los datos de todas las habitaciones del hotel.
      */
-    public String mostrarHabitacionesConNumero()
-    {
+    public String mostrarHabitacionesConNumero() {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
             sb.append("Habitacion= ").append(entry.getKey())
@@ -229,13 +241,10 @@ public class Hotel implements Serializable {
         return sb.toString();
     }
 
-    public String mostrarAlquileresPorPasajero(Persona pasajero)
-    {
+    public String mostrarAlquileresPorPasajero(Persona pasajero) {
         StringBuilder sb = new StringBuilder();
-        for(Reserva r : reservas)
-        {
-            if(r.getPersona().equals(pasajero))
-            {
+        for (Reserva r : reservas) {
+            if (r.getPersona().equals(pasajero)) {
                 sb.append("Reservas: ").append(r).append("\n");
             }
 
@@ -244,13 +253,10 @@ public class Hotel implements Serializable {
     }
 
 
-    public boolean verificarQueTieneReserva(Persona p)
-    {
+    public boolean verificarQueTieneReserva(Persona p) {
         boolean aux = false;
-        for(Reserva r : reservas)
-        {
-            if(r.getPersona().equals(p))
-            {
+        for (Reserva r : reservas) {
+            if (r.getPersona().equals(p)) {
                 aux = true;
             }
         }
@@ -264,16 +270,14 @@ public class Hotel implements Serializable {
         guardarReservasArchivo();
         guardarHabitacionesArchivo();
     }
-    public void cancelarReserva(Reserva r)
-    {
-        for(Map.Entry<Integer,Habitacion> entry : listaHabitaciones.entrySet())
-        {
-            if(entry.getValue().equals(r.getHabitacion()))
-            {
-                System.out.printf("\n---habitacion: "+entry.getValue().toString()+"---\n");
+
+    public void cancelarReserva(Reserva r) {
+        for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
+            if (entry.getValue().equals(r.getHabitacion())) {
+                System.out.printf("\n---habitacion: " + entry.getValue().toString() + "---\n");
                 entry.getValue().setEstado(EEstadoHabitacion.DISPONIBLE);
-                System.out.printf("\n---habitacion: "+entry.getValue().toString()+"---\n");
-            }else {
+                System.out.printf("\n---habitacion: " + entry.getValue().toString() + "---\n");
+            } else {
                 System.out.printf("\n---no encontre la habitacion---\n");
             }
         }
@@ -282,19 +286,22 @@ public class Hotel implements Serializable {
         guardarHabitacionesArchivo();
     }
 
-    public ArrayList<Reserva> listaReservaPasajero(Persona p)
-    {
+    public ArrayList<Reserva> listaReservaPasajero(Persona p) {
         ArrayList<Reserva> reservasPasajero = new ArrayList<>();
-        for(Reserva r : reservas)
-        {
-            if(r.getPersona().equals(p))
-            {
+        for (Reserva r : reservas) {
+            if (r.getPersona().equals(p)) {
                 reservasPasajero.add(r);
             }
         }
         return reservasPasajero;
     }
 
+
+    public void agregarHabitacion(int numero,Habitacion a)
+    {
+        listaHabitaciones.put(numero,a);
+        guardarHabitacionesArchivo();
+    }
 
     public void guardarReservasArchivo()
     {
@@ -325,6 +332,16 @@ public class Hotel implements Serializable {
         return reservas;
     }
 
+    public String mostrarHuespedes()
+    {
+        StringBuilder sb = new StringBuilder();
+        for(Estadia e : estadias)
+        {
+            sb.append("Huespedes= ").append(e.getPasajero().toString());
+        }
+        return sb.toString();
+    }
+
     public void finEstadia(){
         for(Estadia e : estadias)
         {
@@ -336,5 +353,23 @@ public class Hotel implements Serializable {
         }
     }
 
+    public void eliminarHabitacion(int numero)
+    {
+        listaHabitaciones.remove(numero);
+        guardarHabitacionesArchivo();
+    }
 
+    public boolean existeHabitacion(int numero)
+    {
+        if(listaHabitaciones.get(numero)!=null)
+        {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public int numeroHabitacion() {
+        return listaHabitaciones.size()+1;
+    }
 }

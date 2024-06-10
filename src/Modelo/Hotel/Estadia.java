@@ -41,8 +41,10 @@ public class Estadia {
     public Check getCheck() {
         return check;
     }
-
     public Habitacion getHabitacion() {
         return habitacion;
+    }
+    public Persona getPasajero() {
+        return pasajero;
     }
 }

@@ -1,6 +1,7 @@
 package Modelo.PaginaPrincipal.PantallasPCA;
 
 import Modelo.Hotel.Hotel;
+import Modelo.PaginaPrincipal.PantallaFrigobar;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaCancelarReserva;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaReserva;
 import Modelo.Persona.Persona;
@@ -59,8 +60,13 @@ public class PantallaPrincipalPasajero extends JFrame {
                 }else {
                     JOptionPane.showMessageDialog(null,"no tenes reservas para cancelar");
                 }
+            }
+        });
 
-
+        frigobarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PantallaFrigobar pf1 = new PantallaFrigobar();
             }
         });
     }
