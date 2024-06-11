@@ -39,9 +39,7 @@ public class Main {
 //        persona3.agregarAlArchivo(persona3);
 
 
-        /**
-         *      ARREGLAR ARCHIVOS DE ALGUNA FORMA
-         */
+
         Hotel hotel = new Hotel();
         /**
          * DESCOMENTAR PARA EJECUTAR LA INTERFAZ GRAFICA

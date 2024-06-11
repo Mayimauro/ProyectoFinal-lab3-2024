@@ -76,6 +76,24 @@ public class Persona implements Serializable {
         personas.add(persona);
         escribirArchivo(personas);
     }
+    public void actualizarArchivo(Persona persona) {
+        ArrayList<Persona> personas = new ArrayList<>();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("Usuarios"))) {
+            while (true) {
+                try {
+                    Persona userArchi = (Persona) ois.readObject();
+                    personas.add(userArchi);
+                } catch (EOFException eof) {
+                    break; // Fin del archivo alcanzado
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        personas.remove(persona);
+        escribirArchivo(personas);
+    }
 
 
     public void escribirArchivo(ArrayList<Persona> usuarios) {
@@ -89,6 +107,9 @@ public class Persona implements Serializable {
         }
     }
 
+    public String getDNI() {
+        return DNI;
+    }
 
     @Override
     public String toString() {

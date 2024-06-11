@@ -372,4 +372,23 @@ public class Hotel implements Serializable {
     public int numeroHabitacion() {
         return listaHabitaciones.size()+1;
     }
+
+    public void borrarUsuario(String dni)
+    {
+        for(Persona p : usuarios)
+        {
+            if(p.getDNI().equals(dni))
+            {
+                if(p.getMail().contains("@admin.com"))
+                {
+                    System.out.printf("\n---no se puede eliminar un administrador---\n");
+                }else {
+                    usuarios.remove(p);
+                    p.actualizarArchivo(p);
+                }
+
+            }
+        }
+    }
+
 }

@@ -72,5 +72,59 @@ public class PantallaRegistro extends JFrame{
         });
     }
 
+    public PantallaRegistro(int x) {
+        setTitle("Registro conserje");
+        setSize(450,300);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setVisible(true);
+        setContentPane(PantallaRegistro);
+        setLocationRelativeTo(null);
+
+        salirButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        siguienteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //verifica que ningun campo este vacio
+                if(!nombre.getText().isEmpty() && !apellido.getText().isEmpty() && !mail.getText().isEmpty()
+                        && !contraseña.getText().isEmpty() && !dni.getText().isEmpty() && !repetirContraseña.getText().isEmpty()){
+                    if(mail.getText().contains("@")){
+
+                        char[] password1 = contraseña.getPassword();
+                        char[] password2 = repetirContraseña.getPassword();
+                        if(Arrays.equals(password1, password2)){
+
+                            String sNombre = nombre.getText();
+                            String sApellido = apellido.getText();
+                            String sDni = dni.getText();
+                            String sMail = mail.getText();
+
+                            char[] passwordChars = contraseña.getPassword();
+                            // Convertir el char[] a String
+                            String sContraseña = new String(passwordChars);
+
+                            Persona p = new Persona(sNombre,sApellido,sDni,sMail,sContraseña,null);
+                            p.agregarAlArchivo(p);
+                            JOptionPane.showMessageDialog(null,"Registro exitoso");
+                            setVisible(false);
+
+                        }else {
+                            JOptionPane.showMessageDialog(null,"las constraseñas no coiciden");
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(null,"ingrese un mail valido");
+                    }
+                }else {
+                    JOptionPane.showMessageDialog(null,"todos los campos deven estar completos");
+                }
+            }
+        });
+
+    }
+
 
 }

@@ -3,6 +3,7 @@ package Modelo.PaginaPrincipal.PantallasPCA;
 import Modelo.Hotel.Hotel;
 import Modelo.PaginaPrincipal.PantallaAgregarHabitacion;
 import Modelo.PaginaPrincipal.PantallaEliminarHabitacion;
+import Modelo.PaginaPrincipal.PantallasISRD.PantallaRegistro;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -73,6 +74,35 @@ public class PantallaPrincipalAdmin extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PantallaEliminarHabitacion pe1 = new PantallaEliminarHabitacion(a);
+            }
+        });
+
+        agregarConserjeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int x=0;
+                PantallaRegistro rc = new PantallaRegistro(x);
+            }
+        });
+        quitarConserjeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JTextField textField = new JTextField(10);
+
+                Object[] message = {
+                        "Introduce DNI de conserje a eliminar: ", textField
+                };
+
+                int option = JOptionPane.showConfirmDialog(null, message, "Entrada de Texto", JOptionPane.OK_CANCEL_OPTION);
+
+                if (option == JOptionPane.OK_OPTION) {
+                    String userInput = textField.getText();
+
+                    a.borrarUsuario(userInput);
+
+                }
+
             }
         });
     }
