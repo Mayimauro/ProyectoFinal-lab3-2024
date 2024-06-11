@@ -1,7 +1,6 @@
 package Modelo.PaginaPrincipal.PantallasPCA;
 
 import Modelo.Hotel.Hotel;
-import Modelo.PaginaPrincipal.PantallaFrigobar;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaCancelarReserva;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaReserva;
 import Modelo.Persona.Persona;
@@ -41,7 +40,13 @@ public class PantallaPrincipalPasajero extends JFrame {
         alquileresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,hotel.mostrarAlquileresPorPasajero(p));
+                if(hotel.mostrarAlquileresPorPasajero(p).isEmpty())
+                {
+                    JOptionPane.showMessageDialog(null, "No hay reservas hechas");
+                }else{
+                    JOptionPane.showMessageDialog(null,hotel.mostrarAlquileresPorPasajero(p));
+                }
+
             }
         });
         salirButton.addActionListener(new ActionListener() {
@@ -66,7 +71,28 @@ public class PantallaPrincipalPasajero extends JFrame {
         frigobarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PantallaFrigobar pf1 = new PantallaFrigobar();
+                if(hotel.verificarEstadia(p.getDNI())==1)
+                {
+
+                } else if(hotel.verificarEstadia(p.getDNI())==-1) {
+
+                    JOptionPane.showMessageDialog(null,"La habitacion no cuenta con frigobar");
+                }else {
+                    JOptionPane.showMessageDialog(null,"No estas en el hotel todavia");
+                }
+
+            }
+        });
+        servicioAlCuartoButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        verGastosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

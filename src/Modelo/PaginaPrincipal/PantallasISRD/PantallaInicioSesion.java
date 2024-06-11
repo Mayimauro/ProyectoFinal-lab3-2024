@@ -57,7 +57,8 @@ public class PantallaInicioSesion extends JFrame{
                         setVisible(false);
 
                     } else if (autentificador ==2) {
-                        PantallaPrincipalConserje conserje = new PantallaPrincipalConserje(hotel);
+                        Persona p = hotel.buscarPersona(Usuario.getText(),password);
+                        PantallaPrincipalConserje conserje = new PantallaPrincipalConserje(hotel,p.getNombre());
                         JOptionPane.showMessageDialog(null,"inicio de sesion exitoso");
                         setVisible(false);
                     }else if (autentificador ==0){

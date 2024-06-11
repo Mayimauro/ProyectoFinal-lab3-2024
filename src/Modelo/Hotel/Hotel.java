@@ -241,6 +241,19 @@ public class Hotel implements Serializable {
         return sb.toString();
     }
 
+    public String mostrarHabitacionesNoDisponibles() {
+        StringBuilder sb = new StringBuilder();
+        for (Map.Entry<Integer, Habitacion> entry : listaHabitaciones.entrySet()) {
+            if (entry.getValue().getEstado().equals(EEstadoHabitacion.OCUPADA)) {
+                System.out.printf("\n---habitacion: " + entry.getValue().toString() + "---\n");
+                sb.append("Habitacion= ").append(entry.getKey())
+                        .append(", ").append(entry.getValue().toString())
+                        .append("\n");
+            }
+        }
+        return sb.toString();
+    }
+
     public String mostrarAlquileresPorPasajero(Persona pasajero) {
         StringBuilder sb = new StringBuilder();
         for (Reserva r : reservas) {
@@ -252,6 +265,18 @@ public class Hotel implements Serializable {
         return sb.toString();
     }
 
+    public void cambiarEstadoHabitacion(int key, EEstadoHabitacion estado)
+    {
+        if(listaHabitaciones.containsKey(key))
+        {
+            if(!listaHabitaciones.get(key).getEstado().equals(EEstadoHabitacion.OCUPADA))
+            {
+                listaHabitaciones.get(key).setEstado(estado);
+                guardarHabitacionesArchivo();
+            }
+
+        }
+    }
 
     public boolean verificarQueTieneReserva(Persona p) {
         boolean aux = false;
@@ -373,8 +398,9 @@ public class Hotel implements Serializable {
         return listaHabitaciones.size()+1;
     }
 
-    public void borrarUsuario(String dni)
+    public boolean borrarUsuario(String dni)
     {
+        boolean borrado = false;
         for(Persona p : usuarios)
         {
             if(p.getDNI().equals(dni))
@@ -385,10 +411,49 @@ public class Hotel implements Serializable {
                 }else {
                     usuarios.remove(p);
                     p.actualizarArchivo(p);
+                    borrado = true;
+                }
+            }
+        }
+        return borrado;
+    }
+
+    public boolean confirmarEstadia(String dni)
+    {
+        boolean confirmar = false;
+        for(Reserva r : reservas)
+        {
+            if(r.getPersona().getDNI() == dni)
+            {
+                if(r.getFechaIngreso().equals(LocalDate.now()))
+                {
+                    Estadia e1 = new Estadia(r.getFechaIngreso(),r.getFechaSalida(),r.getPersona(),r.getHabitacion());
+                    estadias.add(e1);
+                    confirmar = true;
+
+                }else {
+                    confirmar = false;
+                }
+            }
+        }
+        return confirmar;
+    }
+    public int verificarEstadia(String dni)
+    {
+        for(Estadia e : estadias)
+        {
+            if(e.getPasajero().getDNI()==dni)
+            {
+                if(e.getHabitacion().getClass().getName().equals("Modelo.Habitaciones.HabitacionEstandar") || e.getHabitacion().getClass().getName().equals("Modelo.Habitaciones.HabitacionPremium"))
+                {
+                    return 1;
+                }else{
+                    return -1;
                 }
 
             }
         }
+        return 0;
     }
 
 }

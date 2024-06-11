@@ -16,7 +16,7 @@ public class PantallaPrincipalAdmin extends JFrame {
     private JButton agregarConserjeButton;
     private JButton quitarConserjeButton;
     private JButton eliminarHabitacionButton;
-    private JButton consultarButton3;
+    private JButton pasarBaseDeDatosButton;
     private JButton consultarButton2;
     private JButton consultarButton1;
     private JButton consultarButton4;
@@ -87,22 +87,22 @@ public class PantallaPrincipalAdmin extends JFrame {
         quitarConserjeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 JTextField textField = new JTextField(10);
-
                 Object[] message = {
                         "Introduce DNI de conserje a eliminar: ", textField
                 };
-
                 int option = JOptionPane.showConfirmDialog(null, message, "Entrada de Texto", JOptionPane.OK_CANCEL_OPTION);
-
                 if (option == JOptionPane.OK_OPTION) {
                     String userInput = textField.getText();
-
-                    a.borrarUsuario(userInput);
+                    boolean borrado = a.borrarUsuario(userInput);
+                    if(borrado)
+                    {
+                        JOptionPane.showMessageDialog(null,"El usuario ha sido borrada con exito");
+                    }else {
+                        JOptionPane.showMessageDialog(null,"Error al borrar al usuario");
+                    }
 
                 }
-
             }
         });
     }

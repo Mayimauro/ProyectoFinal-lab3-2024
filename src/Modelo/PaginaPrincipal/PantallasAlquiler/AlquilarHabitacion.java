@@ -83,7 +83,7 @@ public class AlquilarHabitacion extends JFrame{
 
                     hotel.agregarReserva(r1);
                     JOptionPane.showMessageDialog(null,"Alquiler completo");
-                    JOptionPane.showMessageDialog(null,"detalles :"+ r1);
+                    JOptionPane.showMessageDialog(null,"precio final de la reserva: "+ r1.precioFinal());
                     setVisible(false);
 
                 }else {
