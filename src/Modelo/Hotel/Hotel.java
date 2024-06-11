@@ -460,6 +460,18 @@ public class Hotel implements Serializable {
         return 0;
     }
 
+    public Estadia getEstadia(String dni)
+    {
+            for(Estadia e : estadias)
+            {
+                if(e.getPasajero().getDNI()==dni)
+                {
+                    return e;
+
+                }
+            }
+            return null;
+    }
 
     /**
      * COMPLETAR PASAR ESTADIAS A JSON

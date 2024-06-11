@@ -19,6 +19,7 @@ public class Estadia {
     private Check check;
     private Habitacion habitacion;
     private ServicioHabitacion servicioHabitacion;
+    private double precioFinal;
 
     /**
      *
@@ -40,19 +41,28 @@ public class Estadia {
         }else {
             servicioHabitacion = new ServicioHabitacion(habitacion,null);
         }
+        this.precioFinal = precioFinal(fechaIngreso,fechaSalida);
+    }
+
+    private int calcularDias(LocalDate fechaIngreso, LocalDate fechaSalida)
+    {
+        long daysBetween = fechaIngreso.toEpochDay() - fechaSalida.toEpochDay();
+        return (int) daysBetween;
+    }
+
+    private double precioFinal(LocalDate fechaIngreso, LocalDate fechaSalida)
+    {
+        int dias = calcularDias(fechaIngreso,fechaSalida);
+        if(dias !=0)
+        {
+            return habitacion.costoFinalHabitacion()*dias;
+
+        }else return habitacion.costoFinalHabitacion();
     }
 
     public ServicioHabitacion getServicioHabitacion()
     {
         return servicioHabitacion;
-    }
-    public void agregarProductos(Frigobar f) {
-        Producto p1 = new Producto("Snack",10);
-        Producto p2 = new Producto("Cocucha",20);
-        Producto p3 = new Producto("Gomitas",25);
-        f.argrgarProductos(p1);
-        f.argrgarProductos(p2);
-        f.argrgarProductos(p3);
     }
     public Check getCheck() {
         return check;
@@ -62,6 +72,19 @@ public class Estadia {
     }
     public Persona getPasajero() {
         return pasajero;
+    }
+    public double getPrecioFinal()
+    {
+        return precioFinal;
+    }
+
+    private void agregarProductos(Frigobar f) {
+        Producto p1 = new Producto("Snack",10);
+        Producto p2 = new Producto("Cocucha",20);
+        Producto p3 = new Producto("Gomitas",25);
+        f.argrgarProductos(p1);
+        f.argrgarProductos(p2);
+        f.argrgarProductos(p3);
     }
 
 }

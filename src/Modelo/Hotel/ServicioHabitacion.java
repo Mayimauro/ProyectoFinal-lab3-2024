@@ -51,22 +51,32 @@ public class ServicioHabitacion {
         precioFinal += e.getPrecio();
     }
 
-    public void pedirComida(ETipoComida e)
+    public boolean pedirComida(ETipoComida e)
     {
+        boolean pedido = false;
         if(e == ETipoComida.CENA)
         {
             consumos.agregarConsumo(e);
+            pedido = true;
         }else if (e == ETipoComida.ALMUERZO){
             consumos.agregarConsumo(e);
+            pedido = true;
         }else {
             consumos.agregarConsumo(e);
+            pedido = true;
         }
         calcularPrecioComidas(e);
+        return pedido;
     }
 
     public int verStock(int x)
     {
         return frigobar.devolverStock(x);
+    }
+
+    public double getPrecioFinal()
+    {
+        return precioFinal;
     }
 
 }
