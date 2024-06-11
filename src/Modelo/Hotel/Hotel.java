@@ -8,12 +8,15 @@ import Modelo.Habitaciones.HabitacionEconomica;
 import Modelo.Habitaciones.HabitacionEstandar;
 import Modelo.Habitaciones.HabitacionPremium;
 import Modelo.Persona.Persona;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Hotel implements Serializable {
@@ -423,12 +426,13 @@ public class Hotel implements Serializable {
         boolean confirmar = false;
         for(Reserva r : reservas)
         {
-            if(r.getPersona().getDNI() == dni)
+            if(r.getPersona().getDNI().equals(dni))
             {
                 if(r.getFechaIngreso().equals(LocalDate.now()))
                 {
                     Estadia e1 = new Estadia(r.getFechaIngreso(),r.getFechaSalida(),r.getPersona(),r.getHabitacion());
                     estadias.add(e1);
+                    estadiasAJson();
                     confirmar = true;
 
                 }else {
@@ -455,5 +459,33 @@ public class Hotel implements Serializable {
         }
         return 0;
     }
+
+
+    /**
+     * COMPLETAR PASAR ESTADIAS A JSON
+     *
+     */
+    private void estadiasAJson()
+    {
+        //COMPLETAR
+    }
+
+    private void leerEstadiaDeJson()
+    {
+        //COMPLETAR
+    }
+
+    public ServicioHabitacion obtenerFrigobar(Persona p)
+    {
+        for(Estadia e : estadias)
+        {
+            if(e.getPasajero().getDNI() == p.getDNI())
+            {
+                return e.getServicioHabitacion();
+            }
+        }
+        return null;
+    }
+
 
 }

@@ -2,9 +2,12 @@ package Modelo.Hotel;
 
 import Enums.EEstadoHabitacion;
 import Modelo.Habitaciones.Frigobar.Frigobar;
+import Modelo.Habitaciones.Frigobar.Producto;
 import Modelo.Habitaciones.Habitacion;
 import Modelo.Persona.Persona;
+import com.google.gson.*;
 
+import java.lang.reflect.Type;
 import java.time.LocalDate;
 
 /**
@@ -32,12 +35,25 @@ public class Estadia {
         if(habitacion.getClass().getName().equals("Modelo.Habitaciones.HabitacionEstandar") || habitacion.getClass().getName().equals("Modelo.Habitaciones.HabitacionPremium"))
         {
             Frigobar f = new Frigobar();
+            agregarProductos(f);
             servicioHabitacion = new ServicioHabitacion(habitacion,f);
         }else {
             servicioHabitacion = new ServicioHabitacion(habitacion,null);
         }
     }
 
+    public ServicioHabitacion getServicioHabitacion()
+    {
+        return servicioHabitacion;
+    }
+    public void agregarProductos(Frigobar f) {
+        Producto p1 = new Producto("Snack",10);
+        Producto p2 = new Producto("Cocucha",20);
+        Producto p3 = new Producto("Gomitas",25);
+        f.argrgarProductos(p1);
+        f.argrgarProductos(p2);
+        f.argrgarProductos(p3);
+    }
     public Check getCheck() {
         return check;
     }
@@ -47,4 +63,5 @@ public class Estadia {
     public Persona getPasajero() {
         return pasajero;
     }
+
 }

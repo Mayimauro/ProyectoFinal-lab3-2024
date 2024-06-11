@@ -1,6 +1,7 @@
 package Modelo.PaginaPrincipal.PantallasPCA;
 
 import Modelo.Hotel.Hotel;
+import Modelo.PaginaPrincipal.PantallaFrigobar;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaCancelarReserva;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaReserva;
 import Modelo.Persona.Persona;
@@ -73,7 +74,7 @@ public class PantallaPrincipalPasajero extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(hotel.verificarEstadia(p.getDNI())==1)
                 {
-
+                    PantallaFrigobar pf1 = new PantallaFrigobar(hotel.obtenerFrigobar(p));
                 } else if(hotel.verificarEstadia(p.getDNI())==-1) {
 
                     JOptionPane.showMessageDialog(null,"La habitacion no cuenta con frigobar");

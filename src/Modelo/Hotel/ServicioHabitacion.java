@@ -64,4 +64,9 @@ public class ServicioHabitacion {
         calcularPrecioComidas(e);
     }
 
+    public int verStock(int x)
+    {
+        return frigobar.devolverStock(x);
+    }
+
 }

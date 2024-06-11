@@ -27,6 +27,10 @@ public class Frigobar implements Serializable {
         return null;
     }
 
+    public int devolverStock(int num)
+    {
+        return productos.get(num).getStock();
+    }
 
     @Override
     public String toString() {

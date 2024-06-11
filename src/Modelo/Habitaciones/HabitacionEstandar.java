@@ -31,6 +31,7 @@ public class HabitacionEstandar extends HabitacionEconomica {
         this.frigobar = true;
     }
 
+
     /**
      * Método heredado y sobreescrito para calcular el costo adicional.
      * @return retorna el costo adicional según las comodidades elejidas por el usuario.
