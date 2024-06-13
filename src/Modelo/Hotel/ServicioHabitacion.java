@@ -6,9 +6,13 @@ import Modelo.Habitaciones.Frigobar.Frigobar;
 import Modelo.Habitaciones.Frigobar.Producto;
 import Modelo.Habitaciones.Habitacion;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ServicioHabitacion {
+public class ServicioHabitacion implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Habitacion habitacion;
     private Frigobar frigobar;
     private ListaGenericaConsumos consumos;
@@ -28,27 +32,24 @@ public class ServicioHabitacion {
      * @return devuleve -1 si no hay mas stock del producto que quiere consumir
      * @return devuleve 0 si no hay de ese producto en el frigobar
      */
-    public int consumirProducto(String nombre) {
+    public boolean consumirProducto(String nombre) {
         Producto p = frigobar.existeProducto(nombre);
+
         if(p != null)
         {
             if(p.bajaStock())
             {
                 consumos.agregarConsumo(p);
-                precioFinal += p.getPrecio()*(p.getStock()-2); //calculo el precioFinal cada vez que consume algo
-                return 1;
-            }else{
-                return -1;
+                precioFinal = precioFinal + p.getPrecio();
+                return true;
             }
-        }else
-        {
-            return 0;
         }
+        return false;
     }
 
     private void calcularPrecioComidas(ETipoComida e)
     {
-        precioFinal += e.getPrecio();
+        precioFinal = precioFinal + e.getPrecio();
     }
 
     public boolean pedirComida(ETipoComida e)
@@ -72,6 +73,11 @@ public class ServicioHabitacion {
     public int verStock(int x)
     {
         return frigobar.devolverStock(x);
+    }
+
+    public void recargarFrigobar()
+    {
+        frigobar.recargar();
     }
 
     public double getPrecioFinal()

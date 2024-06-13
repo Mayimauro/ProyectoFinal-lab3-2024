@@ -1,8 +1,12 @@
 package Genericas;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ListaGenericaConsumos {
+public class ListaGenericaConsumos implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     public ArrayList<Object> consumos;
 
     public ListaGenericaConsumos() {

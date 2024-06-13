@@ -7,6 +7,7 @@ import Modelo.Habitaciones.Habitacion;
 import Modelo.Persona.Persona;
 import com.google.gson.*;
 
+import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 
@@ -14,7 +15,10 @@ import java.time.LocalDate;
  * Clase con el fin de controlar la estadía real de los pasajeros en el hotel. Indica las fechas reales en las que se
  * encontró en el hotel, maneja los checks y muestra los consumos, si los tuviera.
  */
-public class Estadia {
+public class Estadia implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private Persona pasajero;
     private Check check;
     private Habitacion habitacion;
@@ -46,18 +50,23 @@ public class Estadia {
 
     private int calcularDias(LocalDate fechaIngreso, LocalDate fechaSalida)
     {
-        long daysBetween = fechaIngreso.toEpochDay() - fechaSalida.toEpochDay();
+        long daysBetween =  fechaSalida.toEpochDay() - fechaIngreso.toEpochDay();
         return (int) daysBetween;
     }
 
     private double precioFinal(LocalDate fechaIngreso, LocalDate fechaSalida)
     {
         int dias = calcularDias(fechaIngreso,fechaSalida);
+
         if(dias !=0)
         {
+
             return habitacion.costoFinalHabitacion()*dias;
 
-        }else return habitacion.costoFinalHabitacion();
+        }else {
+
+            return habitacion.costoFinalHabitacion();
+        }
     }
 
     public ServicioHabitacion getServicioHabitacion()
@@ -76,6 +85,11 @@ public class Estadia {
     public double getPrecioFinal()
     {
         return precioFinal;
+    }
+
+    public void actualizarPrecioFinal(double p)
+    {
+        precioFinal +=p;
     }
 
     private void agregarProductos(Frigobar f) {

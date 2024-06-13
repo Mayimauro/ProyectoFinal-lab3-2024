@@ -2,12 +2,12 @@ package Modelo.PaginaPrincipal.PantallasPCA;
 
 import Enums.ETipoComida;
 import Modelo.Hotel.Hotel;
-import Modelo.PaginaPrincipal.PantallaFrigobar;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaCancelarReserva;
 import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaReserva;
 import Modelo.Persona.Persona;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,6 +23,7 @@ public class PantallaPrincipalPasajero extends JFrame {
     private JButton verGastosButton;
     private JButton salirButton;
     private JButton cancelarReservaButton;
+    private JButton recargarFrigobarButton;
 
     public PantallaPrincipalPasajero(Hotel hotel, Persona p) {
 
@@ -75,7 +76,56 @@ public class PantallaPrincipalPasajero extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 if(hotel.verificarEstadia(p.getDNI())==1)
                 {
-                    PantallaFrigobar pf1 = new PantallaFrigobar(hotel.obtenerFrigobar(p));
+
+                    JLabel label1 = new JLabel(String.valueOf(hotel.getEstadia(p.getDNI()).getServicioHabitacion().verStock(0)));
+                    JLabel label2 = new JLabel(String.valueOf(hotel.getEstadia(p.getDNI()).getServicioHabitacion().verStock(1)));
+                    JLabel label3 = new JLabel(String.valueOf(hotel.getEstadia(p.getDNI()).getServicioHabitacion().verStock(2)));
+
+                    // Crear botones de radio
+                    JRadioButton coca = new JRadioButton("Snack");
+                    JRadioButton snack = new JRadioButton("Cocucha");
+                    JRadioButton gomitas = new JRadioButton("Gomitas");
+
+                    // Agrupar los botones de radio para que solo se pueda seleccionar uno
+                    ButtonGroup group = new ButtonGroup();
+                    group.add(coca);
+                    group.add(snack);
+                    group.add(gomitas);
+
+                    // Crear panel y añadir componentes
+                    JPanel panel = new JPanel(new GridLayout(4, 2));
+                    panel.add(label1);
+                    panel.add(coca);
+                    panel.add(label2);
+                    panel.add(snack);
+                    panel.add(label3);
+                    panel.add(gomitas);
+
+                    // Añadir botones de confirmación y cancelación
+                    int result = JOptionPane.showConfirmDialog(null, panel, "Custom Dialog", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                    // Manejar el resultado del diálogo
+                    if (result == JOptionPane.OK_OPTION) {
+                        String selectedOption = null;
+                        if (coca.isSelected() && (hotel.getEstadia(p.getDNI()).getServicioHabitacion().verStock(0) !=0)) {
+                            selectedOption = coca.getText();
+                            hotel.getEstadia(p.getDNI()).getServicioHabitacion().consumirProducto(selectedOption);
+                            hotel.guardarEstadias();
+                        } else if (snack.isSelected() && (hotel.getEstadia(p.getDNI()).getServicioHabitacion().verStock(1) !=0))  {
+                            selectedOption = snack.getText();
+                            hotel.getEstadia(p.getDNI()).getServicioHabitacion().consumirProducto(selectedOption);
+                            hotel.guardarEstadias();
+                        } else if (gomitas.isSelected() && (hotel.getEstadia(p.getDNI()).getServicioHabitacion().verStock(2) !=0))  {
+                            selectedOption = gomitas.getText();
+                            hotel.getEstadia(p.getDNI()).getServicioHabitacion().consumirProducto(selectedOption);
+                            hotel.guardarEstadias();
+                        }else {
+                            JOptionPane.showMessageDialog(null, "no hay stock");
+                        }
+                    } else {
+
+                    }
+
                 } else if(hotel.verificarEstadia(p.getDNI())==-1) {
 
                     JOptionPane.showMessageDialog(null,"La habitacion no cuenta con frigobar");
@@ -89,7 +139,7 @@ public class PantallaPrincipalPasajero extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                if(hotel.verificarEstadia(p.getDNI())==1)
+                if(hotel.verificarEstadia(p.getDNI())==1 || hotel.verificarEstadia(p.getDNI())==-1)
                 {
                     JComboBox<ETipoComida> comboBox = new JComboBox<>(ETipoComida.values());
 
@@ -101,6 +151,7 @@ public class PantallaPrincipalPasajero extends JFrame {
                         if(confirmado)
                         {
                             JOptionPane.showMessageDialog(null,"la/el"+comboBox.getSelectedItem().toString()+" ha sido recibido y esta en preparacion, pronto le llegara a su habitacion");
+                            hotel.guardarEstadias();
 
                         }
                     }
@@ -123,6 +174,24 @@ public class PantallaPrincipalPasajero extends JFrame {
                         +"\nTotal estadia: "+estadiaPrecio
                         +"\nPrecio final a pagar: "+total);
 
+            }
+        });
+        recargarFrigobarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(hotel.verificarEstadia(p.getDNI())==1)
+                {
+
+                    hotel.obtenerFrigobar(p).recargarFrigobar();
+                    hotel.guardarEstadias();
+                    JOptionPane.showMessageDialog(null,"Frigobar recargado con exito");
+
+
+                } else if(hotel.verificarEstadia(p.getDNI())==-1) {
+                JOptionPane.showMessageDialog(null,"La habitacion no cuenta con frigobar");
+                }else {
+                JOptionPane.showMessageDialog(null,"No estas en el hotel");
+                }
             }
         });
     }

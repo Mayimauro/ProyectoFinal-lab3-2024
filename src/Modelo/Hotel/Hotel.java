@@ -31,6 +31,7 @@ public class Hotel implements Serializable {
         this.listaHabitaciones = new HashMap<Integer, Habitacion>();
         reservas = new ArrayList<>();
         this.estadias = new ArrayList<>();
+        leerEstadia();
         this.reservas = leerReservasDesdeArchivo("reservas");
         this.usuarios = new ArrayList<>();
         //agregarHabitacionesXArchivo();
@@ -197,7 +198,7 @@ public class Hotel implements Serializable {
      *
      * @return retorna un string con los datos de las habitaciones disponibles.
      * <p>
-     * FUNCIONA A MEDIAS RESIVAR COMO HACER PARA NO AGREGAR HABITACIONES REPETIDAS
+     *
      */
     public String mostrarHabitacionesDisponiblesXFecha(LocalDate fechaEntradaFuturoHuesped, LocalDate fechaSaladiaFuturoHuesped) {
         StringBuilder sb = new StringBuilder();
@@ -432,7 +433,7 @@ public class Hotel implements Serializable {
                 {
                     Estadia e1 = new Estadia(r.getFechaIngreso(),r.getFechaSalida(),r.getPersona(),r.getHabitacion());
                     estadias.add(e1);
-                    estadiasAJson();
+                    guardarEstadias();
                     confirmar = true;
 
                 }else {
@@ -446,7 +447,7 @@ public class Hotel implements Serializable {
     {
         for(Estadia e : estadias)
         {
-            if(e.getPasajero().getDNI()==dni)
+            if(e.getPasajero().getDNI().equals(dni))
             {
                 if(e.getHabitacion().getClass().getName().equals("Modelo.Habitaciones.HabitacionEstandar") || e.getHabitacion().getClass().getName().equals("Modelo.Habitaciones.HabitacionPremium"))
                 {
@@ -464,7 +465,7 @@ public class Hotel implements Serializable {
     {
             for(Estadia e : estadias)
             {
-                if(e.getPasajero().getDNI()==dni)
+                if(e.getPasajero().getDNI().equals(dni))
                 {
                     return e;
 
@@ -473,25 +474,32 @@ public class Hotel implements Serializable {
             return null;
     }
 
-    /**
-     * COMPLETAR PASAR ESTADIAS A JSON
-     *
-     */
-    private void estadiasAJson()
+    public void guardarEstadias()
     {
-        //COMPLETAR
+        try (FileOutputStream fileOut = new FileOutputStream("estadias");
+             ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
+            out.writeObject(estadias);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    private void leerEstadiaDeJson()
+    private void leerEstadia()
     {
-        //COMPLETAR
+        try (FileInputStream fileIn = new FileInputStream("estadias");
+             ObjectInputStream in = new ObjectInputStream(fileIn)) {
+            estadias = (ArrayList<Estadia>) in.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public ServicioHabitacion obtenerFrigobar(Persona p)
     {
         for(Estadia e : estadias)
         {
-            if(e.getPasajero().getDNI() == p.getDNI())
+            if(e.getPasajero().getDNI().equals(p.getDNI()))
             {
                 return e.getServicioHabitacion();
             }

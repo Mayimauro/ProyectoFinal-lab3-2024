@@ -1,5 +1,6 @@
 package Modelo.Hotel;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 /**
@@ -7,7 +8,10 @@ import java.time.LocalDate;
  * del hotel del pasajero y sus acompañantes.
  * Está contenida en la clase Estadia.
  */
-public class Check {
+public class Check implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private LocalDate checkIn;
     private LocalDate checkOut;
 

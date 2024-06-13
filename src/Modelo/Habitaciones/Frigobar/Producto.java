@@ -6,6 +6,9 @@ import java.io.Serializable;
  * Son los productos que va a contener el frigobar.
  */
 public class Producto implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     public static final int STOCK = 2;
     private String nombre;
     private double precio;
@@ -42,6 +45,10 @@ public class Producto implements Serializable {
         {
             return false;
         }
+    }
+
+    public void recargar() {
+            this.stock = 2;
     }
 
     //tostring
