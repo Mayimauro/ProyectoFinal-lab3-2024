@@ -371,7 +371,7 @@ public class Hotel implements Serializable {
         return sb.toString();
     }
 
-    public void finEstadia(){
+    public void finEstadia(String dni){
         for(Estadia e : estadias)
         {
             if(e.getCheck().getCheckOut().equals(LocalDate.now()))
@@ -505,6 +505,27 @@ public class Hotel implements Serializable {
             }
         }
         return null;
+    }
+
+    public void pasarHuespedesAJson()
+    {
+        Gson gson = new Gson();
+        ArrayList<Persona> pasajeros = new ArrayList<>();
+        for(Estadia e : estadias)
+        {
+            pasajeros.add(e.getPasajero());
+        }
+
+        try(FileWriter writer = new FileWriter("pasajeros.json")){
+            gson.toJson(pasajeros,writer);
+
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+
+
     }
 
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Modelo.PaginaPrincipal.PantallasPCA.PantallaPrincipalAdmin">
-  <grid id="27dc6" binding="pantallaAdministrador" layout-manager="GridLayoutManager" row-count="5" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="pantallaAdministrador" layout-manager="GridLayoutManager" row-count="4" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="583" height="180"/>
+      <xy x="20" y="20" width="548" height="164"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -69,49 +69,17 @@
           <text value="Eliminar Habitacion"/>
         </properties>
       </component>
-      <component id="6f126" class="javax.swing.JButton" binding="pasarBaseDeDatosButton" default-binding="true">
+      <component id="6f126" class="javax.swing.JButton" binding="pasarHuespedesAUnButton" default-binding="true">
         <constraints>
           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Pasar base de datos a un Json"/>
-        </properties>
-      </component>
-      <component id="657ae" class="javax.swing.JButton" binding="consultarButton2" default-binding="true">
-        <constraints>
-          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="consultar"/>
-        </properties>
-      </component>
-      <component id="2df3" class="javax.swing.JButton" binding="consultarButton1" default-binding="true">
-        <constraints>
-          <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="consultar"/>
-        </properties>
-      </component>
-      <component id="c195b" class="javax.swing.JButton" binding="consultarButton4" default-binding="true">
-        <constraints>
-          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="consultar"/>
-        </properties>
-      </component>
-      <component id="35844" class="javax.swing.JButton" binding="consultarButton5" default-binding="true">
-        <constraints>
-          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="consultar"/>
+          <text value="Pasar huespedes a un Json"/>
         </properties>
       </component>
       <component id="d5876" class="javax.swing.JButton" binding="salirButton" default-binding="true">
         <constraints>
-          <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Salir"/>

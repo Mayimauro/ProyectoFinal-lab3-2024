@@ -3,22 +3,22 @@ package Genericas;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ListaGenericaConsumos implements Serializable {
+public class ListaGenericaConsumos<T> implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public ArrayList<Object> consumos;
+    public ArrayList<T> consumos;
 
     public ListaGenericaConsumos() {
         this.consumos = new ArrayList<>();
     }
 
-    public ArrayList<Object> getConsumos() {
+    public ArrayList<T> getConsumos() {
         return consumos;
     }
 
-    public void agregarConsumo(Object o)
+    public void agregarConsumo(T t)
     {
-        consumos.add(o);
+        consumos.add(t);
     }
 }

@@ -16,11 +16,7 @@ public class PantallaPrincipalAdmin extends JFrame {
     private JButton agregarConserjeButton;
     private JButton quitarConserjeButton;
     private JButton eliminarHabitacionButton;
-    private JButton pasarBaseDeDatosButton;
-    private JButton consultarButton2;
-    private JButton consultarButton1;
-    private JButton consultarButton4;
-    private JButton consultarButton5;
+    private JButton pasarHuespedesAUnButton;
     private JButton salirButton;
     private JPanel pantallaAdministrador;
 
@@ -103,6 +99,13 @@ public class PantallaPrincipalAdmin extends JFrame {
                     }
 
                 }
+            }
+        });
+        pasarHuespedesAUnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                a.pasarHuespedesAJson();
+                JOptionPane.showConfirmDialog(null,"pasajeros guardados exitosamente!");
             }
         });
     }
