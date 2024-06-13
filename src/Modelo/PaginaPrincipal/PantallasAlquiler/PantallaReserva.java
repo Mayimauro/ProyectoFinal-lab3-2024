@@ -65,5 +65,11 @@ public class PantallaReserva extends JFrame{
 
             }
         });
+        cancelarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
     }
 }
