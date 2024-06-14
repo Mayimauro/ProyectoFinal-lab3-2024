@@ -527,6 +527,14 @@ public class Hotel implements Serializable {
 
 
     }
-
-
+    public Persona buscarPersonaxDNI(String dni) {
+        for(Persona p : usuarios)
+        {
+            if(p.getDNI().equals(dni))
+            {
+                return p;
+            }
+        }
+        return null;
+    }
 }

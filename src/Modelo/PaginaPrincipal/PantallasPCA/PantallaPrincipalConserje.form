@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Modelo.PaginaPrincipal.PantallasPCA.PantallaPrincipalConserje">
-  <grid id="27dc6" binding="jpanelConserje" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="jpanelConserje" layout-manager="GridLayoutManager" row-count="5" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="500" height="141"/>
+      <xy x="20" y="20" width="500" height="180"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -37,9 +37,25 @@
           <text value="Crear Pasajero"/>
         </properties>
       </component>
-      <component id="b2dad" class="javax.swing.JButton" binding="realizarCheckOutButton" default-binding="true">
+      <component id="828b0" class="javax.swing.JButton" binding="salirButton" default-binding="true">
+        <constraints>
+          <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Salir"/>
+        </properties>
+      </component>
+      <component id="6a694" class="javax.swing.JButton" binding="realizarReservaButton" default-binding="true">
         <constraints>
           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="Realizar reserva"/>
+        </properties>
+      </component>
+      <component id="b2dad" class="javax.swing.JButton" binding="realizarCheckOutButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Realizar CheckOut"/>
@@ -47,7 +63,7 @@
       </component>
       <component id="ce9bf" class="javax.swing.JButton" binding="verHabitacionesOcupadasButton" default-binding="true">
         <constraints>
-          <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
           <text value="Ver habitaciones ocupadas"/>
@@ -55,18 +71,10 @@
       </component>
       <component id="d0dc2" class="javax.swing.JButton" binding="cambiarEstadoDeHabitacionButton" default-binding="true">
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Cambiar estado de habitacion"/>
-        </properties>
-      </component>
-      <component id="828b0" class="javax.swing.JButton" binding="salirButton" default-binding="true">
-        <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="Salir"/>
+          <text value="Cambiar estado de habitacion"/>
         </properties>
       </component>
     </children>

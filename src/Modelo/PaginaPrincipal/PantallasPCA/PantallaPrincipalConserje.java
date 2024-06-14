@@ -2,7 +2,9 @@ package Modelo.PaginaPrincipal.PantallasPCA;
 
 import Enums.EEstadoHabitacion;
 import Modelo.Hotel.Hotel;
+import Modelo.PaginaPrincipal.PantallasAlquiler.PantallaReserva;
 import Modelo.PaginaPrincipal.PantallasISRD.PantallaRegistro;
+import Modelo.Persona.Persona;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -21,6 +23,7 @@ public class PantallaPrincipalConserje extends JFrame {
     private JButton verHabitacionesOcupadasButton;
     private JButton cambiarEstadoDeHabitacionButton;
     private JButton salirButton;
+    private JButton realizarReservaButton;
 
     public PantallaPrincipalConserje(Hotel hotel,String nombre) {
         setTitle("Conserje Hotel");
@@ -102,6 +105,33 @@ public class PantallaPrincipalConserje extends JFrame {
                         hotel.cambiarEstadoHabitacion(aux, selectedOption1);
                         JOptionPane.showMessageDialog(null, "estado cambiado con exito!");
                     }
+                }
+            }
+        });
+        realizarReservaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTextField textField = new JTextField(10);
+                Object[] message = {
+                        "Introduce DNI para confirmar checkIn: ", textField
+                };
+                int option = JOptionPane.showConfirmDialog(null, message, "Entrada de Texto", JOptionPane.OK_CANCEL_OPTION);
+                if (option == JOptionPane.OK_OPTION) {
+                    String userInput = textField.getText();
+
+                    Persona persona = hotel.buscarPersonaxDNI(userInput);
+
+                    if(persona!=null)
+                    {
+                        PantallaReserva r1 = new PantallaReserva(hotel,persona);
+
+                    }else {
+                        JOptionPane.showMessageDialog(null, "DNI no encontrado");
+                    }
+
+
+
+
                 }
             }
         });
