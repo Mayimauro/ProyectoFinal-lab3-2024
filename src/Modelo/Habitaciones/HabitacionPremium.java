@@ -33,7 +33,7 @@ public class HabitacionPremium extends HabitacionEstandar{
     @Override
     public String toString() {
         return super.toString() +
-                "jacuzzi=" + jacuzzi +
-                ", servicioDesayuno=" + servicioDesayuno+", ";
+                ", jacuzzi"+
+                ", servicio de desayuno";
     }
 }

@@ -41,6 +41,6 @@ public class HabitacionEconomica extends Habitacion {
     @Override
     public String toString() {
         return super.toString() +
-                "aire=" + aire+", ";
+                ", aire";
     }
 }

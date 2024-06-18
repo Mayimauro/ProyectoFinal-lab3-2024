@@ -150,7 +150,7 @@ public class PantallaPrincipalPasajero extends JFrame {
                         boolean confirmado =  hotel.getEstadia(p.getDNI()).getServicioHabitacion().pedirComida((ETipoComida) comboBox.getSelectedItem());
                         if(confirmado)
                         {
-                            JOptionPane.showMessageDialog(null,"la/el"+comboBox.getSelectedItem().toString()+" ha sido recibido y esta en preparacion, pronto le llegara a su habitacion");
+                            JOptionPane.showMessageDialog(null,"La/el "+comboBox.getSelectedItem().toString()+" ha sido recibido y esta en preparacion, pronto lo enviaremos a su habitación.");
                             hotel.guardarEstadias();
 
                         }
@@ -170,9 +170,9 @@ public class PantallaPrincipalPasajero extends JFrame {
 
               double total = estadiaPrecio + frigoConsumo;
 
-                JOptionPane.showMessageDialog(null,"consumos del frigobar y servicios al cuarto: "+frigoConsumo
-                        +"\nTotal estadia: "+estadiaPrecio
-                        +"\nPrecio final a pagar: "+total);
+                JOptionPane.showMessageDialog(null,"Consumos del frigobar y servicios a la habitación: $"+frigoConsumo
+                        +"\nPrecio reserva: "+estadiaPrecio
+                        +"\nPrecio final a pagar: $"+total);
 
             }
         });

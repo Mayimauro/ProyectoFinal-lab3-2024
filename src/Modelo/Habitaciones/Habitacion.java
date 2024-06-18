@@ -85,7 +85,7 @@ public abstract class Habitacion implements Serializable, ICalcularCostoAdiciona
     @Override
     public String toString() {
         return habitacion +
-                ", precioBase=" + precioBase +
-                ", disponibilidad=" + estado+", ";
+                ", precio base: $" + precioBase +
+                ", " + estado;
     }
 }

@@ -13,11 +13,17 @@ public enum ETipoHabitacion implements Serializable {
     CUADRUPLE_TIPO_1(2,1),
     CUADRUPLE_TIPO_2(0,2);
 
+    private final int cantidadCamasSimples;
+
+    private final int cantidadCamasDobles;
+
     ETipoHabitacion(int cantidadCamasSimples, int cantidadCamasDobles) {
+        this.cantidadCamasSimples = cantidadCamasSimples;
+        this.cantidadCamasDobles = cantidadCamasDobles;
     }
 
     @Override
     public String toString() {
-        return super.toString();
+        return "Camas: (simples: " + cantidadCamasSimples + ", dobles: " + cantidadCamasDobles + ")";
     }
 }
