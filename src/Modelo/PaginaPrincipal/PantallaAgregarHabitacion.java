@@ -2,6 +2,8 @@ package Modelo.PaginaPrincipal;
 
 import Enums.ETipoHabitacion;
 import Modelo.Habitaciones.HabitacionEconomica;
+import Modelo.Habitaciones.HabitacionEstandar;
+import Modelo.Habitaciones.HabitacionPremium;
 import Modelo.Hotel.Hotel;
 
 import javax.swing.*;
@@ -75,20 +77,23 @@ public class PantallaAgregarHabitacion extends JFrame {
 
                 int numHab = a.numeroHabitacion();
 
+                System.out.printf("\n\n--- soy la habitacion numero "+numHab+"--\n\n");
+
                 if(economicaRadioButton.isSelected()){
-                    if(siRadioButton1.isSelected()){
+
                         HabitacionEconomica a1 = new HabitacionEconomica(numHab, (ETipoHabitacion) comboBox1.getSelectedItem(),true);
                         a.agregarHabitacion(numHab,a1);
-                    }else {
-                        HabitacionEconomica a1 = new HabitacionEconomica(numHab, (ETipoHabitacion) comboBox1.getSelectedItem(),true);
-                    }
-
 
                 } else if (estandarRadioButton.isSelected()) {
-
-                }else {
-
+                    HabitacionEstandar a1 = new HabitacionEstandar(numHab, (ETipoHabitacion) comboBox1.getSelectedItem());
+                    a.agregarHabitacion(numHab,a1);
+                }else if(premiumRadioButton.isSelected()){
+                    HabitacionPremium a1 = new HabitacionPremium(numHab,(ETipoHabitacion) comboBox1.getSelectedItem(),true,true);
+                    a.agregarHabitacion(numHab,a1);
+                    System.out.printf(a.mostrarHabitacionesConNumero());
                 }
+                JOptionPane.showMessageDialog(null,"Habitacion creada con exito!");
+                setVisible(false);
             }
         });
         cancelarButton.addActionListener(new ActionListener() {

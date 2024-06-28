@@ -399,7 +399,7 @@ public class Hotel implements Serializable {
     }
 
     public int numeroHabitacion() {
-        return listaHabitaciones.size()+1;
+        return listaHabitaciones.size()+2;
     }
 
     public boolean borrarUsuario(String dni)

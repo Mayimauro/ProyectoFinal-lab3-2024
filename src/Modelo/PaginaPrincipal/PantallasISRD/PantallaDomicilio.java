@@ -51,6 +51,7 @@ public class PantallaDomicilio extends JFrame{
                         Domicilio d1 = new Domicilio(sCalle,sAltura,true,sDescripcion,sProvincia,sLocalidad,sZipcode);
 
                         persona.agregarDomicilio(d1);
+                        persona.agregarAlArchivo(persona);
                         JOptionPane.showMessageDialog(null,"Registro exitoso");
                         JOptionPane.showMessageDialog(null,"persona: "+persona);
                         System.exit(0);

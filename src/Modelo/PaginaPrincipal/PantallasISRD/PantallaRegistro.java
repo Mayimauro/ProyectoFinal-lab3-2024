@@ -83,7 +83,7 @@ public class PantallaRegistro extends JFrame{
         salirButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+                setVisible(false);
             }
         });
         siguienteButton.addActionListener(new ActionListener() {
